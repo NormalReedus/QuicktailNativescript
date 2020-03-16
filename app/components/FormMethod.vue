@@ -1,5 +1,7 @@
 <template>
-
+		<WrapLayout>
+				<Label text="Method" class="h2 text-center" />
+		</WrapLayout>
 </template>
 
 <script>

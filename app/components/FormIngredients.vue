@@ -1,5 +1,7 @@
 <template>
-
+		<StackLayout orientation="vertical">
+				<Label text="Ingredients" class="h2 text-center" />
+		</StackLayout>
 </template>
 
 <script>

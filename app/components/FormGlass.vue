@@ -1,5 +1,6 @@
 <template>
-		<WrapLayout itemWidth="33%" itemHeight="33%">
+		<WrapLayout>
+				<Label text="Glass" class="h2 text-center" />
 		</WrapLayout>
 </template>
 

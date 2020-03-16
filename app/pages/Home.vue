@@ -25,6 +25,11 @@
 
             </FlexboxLayout>
 
+						<!-- TEST -->
+						<Button text="Keys" @tap="keys" class="-primary"></Button>
+						<Button text="Value" @tap="val" class="-outline"></Button>
+						<Button text="Clear" @tap="clear" class="-danger"></Button>
+
         </FlexboxLayout>
 		<!-- </StackLayout> -->
 
@@ -33,7 +38,8 @@
 
 <script>
     import Create from "./Create";
-    import Cocktails from "./Cocktails";
+		import Cocktails from "./Cocktails";
+		const appSettings = require('tns-core-modules/application-settings')
 
     export default {
         name: "Home",
@@ -53,14 +59,28 @@
 				// },
 
         methods: {
-
             navToCreate() {
                 this.$navigateTo(Create);
             },
 
             navToCocktails() {
                 this.$navigateTo(Cocktails);
-            },
+						},
+						
+						keys() {
+							console.log(appSettings.getAllKeys())
+						},
+
+						val() {
+							console.log(appSettings.getString('glassTypes'))
+						},
+
+						clear() {
+							appSettings.clear()
+							console.log(appSettings.getAllKeys())
+						}
+
+
         }
     };
 </script>

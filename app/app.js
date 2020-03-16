@@ -1,4 +1,6 @@
 import Vue from "nativescript-vue";
+const appSettings = require('tns-core-modules/application-settings')
+import defaults from '@/components/defaults.js'
 
 import Home from "./pages/Home";
 
@@ -11,7 +13,47 @@ new Vue({
 
     components: {
         Home
-    },
+		},
+
+		methods: {
+				// Default glasses:
+				initGlassTypes() {
+						appSettings.setString('glassTypes', defaults.glassTypes)
+				},
+			
+				// Default ices:
+				initIceTypes() {
+						appSettings.setString('iceTypes', defaults.iceTypes)
+				},
+
+				// Default methods:
+				initMethods() {
+						appSettings.setString('methods', defaults.methods)
+				},
+
+				// Default garnishes:
+				initGarnishes() {
+						appSettings.setString('garnishes', defaults.garnishes)
+				}
+		},
+		
+		created() {
+			if (!appSettings.hasKey('glassTypes')) {
+				this.initGlassTypes()
+			}
+			
+			if (!appSettings.hasKey('iceTypes')) {
+				this.initIceTypes()
+			}
+			
+			if (!appSettings.hasKey('methods')) {
+				this.initMethods()
+			}
+			
+			if (!appSettings.hasKey('garnishes')) {
+				this.initGarnishes()
+			}	
+		}
 
 		// data() {
 		// 	return {

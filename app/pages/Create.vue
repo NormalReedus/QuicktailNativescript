@@ -52,23 +52,19 @@
 
 
                 <TabContentItem>
-                    <Label text="Glass" class="h2 text-center" />
 										<FormGlass />
                 </TabContentItem>
 
                 <TabContentItem>
-                    <Label text="Ice" class="h2 text-center" />
-										<!-- <FormIce /> -->
+										<FormIce />
                 </TabContentItem>
 
 								<TabContentItem>
-                    <Label text="Method" class="h2 text-center" />
-										<!-- <FormMethod /> -->
+										<FormMethod />
                 </TabContentItem>
 
 								<TabContentItem>
-                    <Label text="Ingredients" class="h2 text-center" />
-										<!-- <FormIngredients /> -->
+										<FormIngredients />
                 </TabContentItem>
 
 								<TabContentItem>
