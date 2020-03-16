@@ -9,26 +9,26 @@
 
         <FlexboxLayout flexDirection="column" class="home">
 
-            <Label text="What would you like to do?" class="h1 greeting" textWrap="true"/>
+            <Label class="h1 greeting" textWrap="true">What would you like to do?</Label>
 
             <FlexboxLayout>
 
                 <FlexboxLayout class="button-container">
-                    <Image src="~/create_btn.png" @tap="navToCreate" class="m-x-25 img"></Image>
-                    <Label text="Create" class="h2" />
+                    <Image src="~/create_btn.png" @tap="navToCreate" class="m-x-25 img" />
+                    <Label class="h2">Create</Label>
                 </FlexboxLayout>
 
                 <FlexboxLayout class="button-container">
-                    <Image src="~/cocktails_btn.png" @tap="navToCocktails" class="m-x-25 img"></Image>
-                    <Label text="Cocktails" class="h2" />
+                    <Image src="~/cocktails_btn.png" @tap="navToCocktails" class="m-x-25 img" />
+                    <Label class="h2">Cocktails</Label>
                 </FlexboxLayout>
 
             </FlexboxLayout>
 
 						<!-- TEST -->
-						<Button text="Keys" @tap="keys" class="-primary"></Button>
-						<Button text="Value" @tap="val" class="-outline"></Button>
-						<Button text="Clear" @tap="clear" class="-danger"></Button>
+						<Button @tap="keys" class="-primary">Keys</Button>
+						<Button @tap="val" class="-outline">Value</Button>
+						<Button @tap="clear" class="-danger">Clear</Button>
 
         </FlexboxLayout>
 		<!-- </StackLayout> -->

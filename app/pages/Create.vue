@@ -19,32 +19,32 @@
             <Tabs dock="top">
                 <TabStrip>
                     <TabStripItem>
-                        <Label text="Glass"></Label>
+                        <Label>Glass</Label>
                         <!-- <Image src="res://home"></Image> -->
                     </TabStripItem>
 
                     <TabStripItem>
-                        <Label text="Ice"></Label>
+                        <Label>Ice</Label>
                         <!-- <Image src="res://settings"></Image> -->
                     </TabStripItem>
 
                     <TabStripItem>
-                        <Label text="Method"></Label>
+                        <Label>Method</Label>
                         <!-- <Image src="res://search"></Image> -->
                     </TabStripItem>
 
                     <TabStripItem>
-                        <Label text="Ingredients"></Label>
+                        <Label>Ingredients</Label>
                         <!-- <Image src="res://search"></Image> -->
                     </TabStripItem>
 
                     <TabStripItem>
-                        <Label text="Garnish"></Label>
+                        <Label>Garnish</Label>
                         <!-- <Image src="res://search"></Image> -->
                     </TabStripItem>
 
                     <TabStripItem>
-                        <Label text="Misc."></Label>
+                        <Label>Misc.</Label>
                         <!-- <Image src="res://search"></Image> -->
                     </TabStripItem>
                 </TabStrip>
@@ -52,15 +52,15 @@
 
 
                 <TabContentItem>
-										<FormGlass />
+										<FormGlass :glassTypes="glassTypes" />
                 </TabContentItem>
 
                 <TabContentItem>
-										<FormIce />
+										<FormIce :iceTypes="iceTypes" />
                 </TabContentItem>
 
 								<TabContentItem>
-										<FormMethod />
+										<FormMethod :methods="methods" />
                 </TabContentItem>
 
 								<TabContentItem>
@@ -68,8 +68,8 @@
                 </TabContentItem>
 
 								<TabContentItem>
-                    <Label text="Garnish" class="h2 text-center" />
-										<!-- <FormGarnish /> -->
+                    <Label class="h2 text-center">Garnish</Label>
+										<!-- <FormGarnish :garnishes="garnishes" /> -->
                 </TabContentItem>
 
 								<TabContentItem>
@@ -92,6 +92,8 @@ import FormIngredients from '@/components/FormIngredients'
 import FormGarnish from '@/components/FormGarnish'
 import FormMisc from '@/components/FormMisc'
 
+const appSettings = require('tns-core-modules/application-settings')
+
 
     export default {
         name: "Create",
@@ -105,7 +107,12 @@ import FormMisc from '@/components/FormMisc'
 				},
 
         data() {
-            return {};
+            return {
+							glassTypes: JSON.parse(appSettings.getString('glassTypes')),
+							iceTypes: JSON.parse(appSettings.getString('iceTypes')),
+							methods: JSON.parse(appSettings.getString('methods')),
+							garnishes: JSON.parse(appSettings.getString('garnishes'))
+						};
         },
 
 				methods: {

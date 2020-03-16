@@ -4,11 +4,11 @@
             <StackLayout orientation="horizontal"
                 ios:horizontalAlignment="center"
                 android:horizontalAlignment="center">
-                <Label text="Cocktails" class="h2" />
+                <Label class="h2">Cocktails</Label>
             </StackLayout>
         </ActionBar>
 
-        <Label text="Cocktails" />
+        <Label>Cocktails</Label>
     </Page>
 </template>
 

@@ -4,7 +4,11 @@
 
 <script>
 	export default {
-		name: 'FormGarnish'
+		name: 'FormGarnish',
+
+		props: {
+			garnishes: Array // Of strings
+		}
 	}
 </script>
 

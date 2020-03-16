@@ -6,7 +6,11 @@
 
 <script>
 	export default {
-		name: 'FormMethod'
+		name: 'FormMethod',
+
+		props: {
+			methods: Array // Of strings
+		}
 		
 	}
 </script>

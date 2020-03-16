@@ -6,7 +6,11 @@
 
 <script>
 	export default {
-		name: 'FormIce'
+		name: 'FormIce',
+
+		props: {
+			iceTypes: Array // Of strings
+		}
 	}
 </script>
 
