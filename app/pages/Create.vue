@@ -13,10 +13,10 @@
 
 						<StackLayout dock="bottom">
 								<Button text="Discard" class="-outline"/>
-								<Button text="Save" class="-primary"/>
+								<Button text="Save" class="-primary" @tap="saveCocktail"/>
 						</StackLayout>
 
-            <Tabs dock="top">
+            <Tabs dock="top" v-model="selectedIndex">
                 <TabStrip>
                     <TabStripItem>
                         <Label>Glass</Label>
@@ -52,29 +52,29 @@
 
 
                 <TabContentItem>
-										<FormGlass :glassTypes="glassTypes" />
+										<FormGlass :glassTypes="glassTypes" @input="setGlass($event)" />
                 </TabContentItem>
 
                 <TabContentItem>
-										<FormIce :iceTypes="iceTypes" />
+										<FormIce :iceTypes="iceTypes" @input="ice = $event" />
                 </TabContentItem>
 
 								<TabContentItem>
-										<FormMethod :methods="methods" />
+										<FormMethod :methods="methods" @input="method = $event" />
                 </TabContentItem>
 
 								<TabContentItem>
-										<FormIngredients />
+										<FormIngredients @input="ingredients = $event" />
                 </TabContentItem>
 
 								<TabContentItem>
                     <Label class="h2 text-center">Garnish</Label>
-										<!-- <FormGarnish :garnishes="garnishes" /> -->
+										<!-- <FormGarnish :garnishes="garnishes" @input="garnish = $event" /> -->
                 </TabContentItem>
 
 								<TabContentItem>
                     <Label text="Misc" class="h2 text-center" />
-										<!-- <FormMisc /> -->
+										<!-- <FormMisc @input="misc = $event" /> -->
                 </TabContentItem>
             </Tabs>
         </DockLayout>
@@ -92,6 +92,7 @@ import FormIngredients from '@/components/FormIngredients'
 import FormGarnish from '@/components/FormGarnish'
 import FormMisc from '@/components/FormMisc'
 
+import Cocktail from '@/components/Cocktail'
 const appSettings = require('tns-core-modules/application-settings')
 
 
@@ -111,13 +112,48 @@ const appSettings = require('tns-core-modules/application-settings')
 							glassTypes: JSON.parse(appSettings.getString('glassTypes')),
 							iceTypes: JSON.parse(appSettings.getString('iceTypes')),
 							methods: JSON.parse(appSettings.getString('methods')),
-							garnishes: JSON.parse(appSettings.getString('garnishes'))
-						};
+							garnishes: JSON.parse(appSettings.getString('garnishes')),
+
+							glass: null,
+							ice: null,
+							method: null,
+							ingredients: null,
+							garnish: null,
+							misc: null,
+
+							selectedIndex: 0 // "Glass" is first tab shown
+						}
         },
 
 				methods: {
-					
-				}
+					setGlass(glassName) {
+						this.glass = glassName
+						this.nextTab()
+					},
+
+					saveCocktail() {
+						let cocktails = JSON.parse(appSettings.getString('cocktails'))
+
+						cocktails.push(new Cocktail(this.glass, this.ice, this.method, this.ingredients, this.garnish, this.misc))
+
+						appSettings.setString('cocktails', JSON.stringify(cocktails))
+					},
+
+					discardCocktail() {
+						this.glass = null
+						this.ice = null
+						this.method = null
+						this.ingredients = null
+						this.garnish = null
+						this.misc = null
+					},
+
+					nextTab() {
+						if (this.selectedIndex < 5) { // less than number of tabs
+							this.selectedIndex++
+						}
+					}
+				},
     };
 </script>
 

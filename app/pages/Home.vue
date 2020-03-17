@@ -26,7 +26,9 @@
             </FlexboxLayout>
 
 						<!-- TEST -->
-						<Button @tap="keys" class="-primary">Keys</Button>
+						<TextField v-model="keyToFind" hint="Find Key..." width="200"/>
+						<Button @tap="key" class="-primary">Key</Button>
+						<Button @tap="keys" class="-outline">All Keys</Button>
 						<Button @tap="val" class="-outline">Value</Button>
 						<Button @tap="clear" class="-danger">Clear</Button>
 
@@ -48,6 +50,12 @@
             Cocktails
         },
 
+				data() {
+					return {
+						keyToFind: ''
+					}
+				},
+
 				// props: {
 				// 	darkTheme: Boolean
 				// },
@@ -67,6 +75,10 @@
                 this.$navigateTo(Cocktails);
 						},
 						
+						key() {
+							console.log(appSettings.getString(this.keyToFind))
+						},
+
 						keys() {
 							console.log(appSettings.getAllKeys())
 						},

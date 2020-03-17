@@ -1,7 +1,10 @@
 export default {
 	glassTypes: JSON.stringify([
 		'Highball',
-		'Rocks'
+		'Rocks',
+		'Collins',
+		'Coupe',
+		'Martini'
 	]),
 
 	iceTypes: JSON.stringify([

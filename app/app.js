@@ -16,43 +16,29 @@ new Vue({
 		},
 
 		methods: {
-				// Default glasses:
-				initGlassTypes() {
-						appSettings.setString('glassTypes', defaults.glassTypes)
-				},
 			
-				// Default ices:
-				initIceTypes() {
-						appSettings.setString('iceTypes', defaults.iceTypes)
-				},
-
-				// Default methods:
-				initMethods() {
-						appSettings.setString('methods', defaults.methods)
-				},
-
-				// Default garnishes:
-				initGarnishes() {
-						appSettings.setString('garnishes', defaults.garnishes)
-				}
 		},
 		
 		created() {
 			if (!appSettings.hasKey('glassTypes')) {
-				this.initGlassTypes()
+				appSettings.setString('glassTypes', defaults.glassTypes)
 			}
 			
 			if (!appSettings.hasKey('iceTypes')) {
-				this.initIceTypes()
+				appSettings.setString('iceTypes', defaults.iceTypes)
 			}
 			
 			if (!appSettings.hasKey('methods')) {
-				this.initMethods()
+				appSettings.setString('methods', defaults.methods)
 			}
 			
 			if (!appSettings.hasKey('garnishes')) {
-				this.initGarnishes()
+				appSettings.setString('garnishes', defaults.garnishes)
 			}	
+
+			if (!appSettings.hasKey('cocktails')) {
+				appSettings.setString('cocktails', '[]')
+			}
 		}
 
 		// data() {
