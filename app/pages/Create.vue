@@ -10,11 +10,22 @@
 
 
         <DockLayout stretchLastChild="true">
-
-						<StackLayout dock="bottom">
+					<DockLayout id="test" dock="bottom" justifyContent="space-between" stretchLastChild="true" background="">
+						<StackLayout dock="right">
 								<Button text="Discard" class="-outline"/>
 								<Button text="Save" class="-primary" @tap="saveCocktail"/>
 						</StackLayout>
+
+						<FlexboxLayout flexWrap="nowrap" justifyContent="space-around" dock="left">
+							<Label>Glass</Label>
+							<Image src="~/checkmark.png" v-if="glass"/>
+							<Label>Ice</Label>
+							<Label>Method</Label>
+							<Label>Ingredients</Label>
+							<Label>Garnish</Label>
+							<Label>Misc.</Label>
+						</FlexboxLayout>
+					</DockLayout>
 
             <Tabs dock="top" v-model="selectedIndex">
                 <TabStrip>
@@ -158,6 +169,4 @@ const appSettings = require('tns-core-modules/application-settings')
 </script>
 
 <style scoped lang="scss">
-
-		
 </style>
