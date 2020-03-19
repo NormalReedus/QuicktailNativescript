@@ -17,13 +17,37 @@
 						</StackLayout>
 
 						<FlexboxLayout flexWrap="nowrap" justifyContent="space-around" dock="left">
-							<Label>Glass</Label>
-							<Image src="~/checkmark.png" v-if="glass"/>
-							<Label>Ice</Label>
-							<Label>Method</Label>
-							<Label>Ingredients</Label>
-							<Label>Garnish</Label>
-							<Label>Misc.</Label>
+
+							<FlexboxLayout flexDirection="column" alignItems="center" background="blue">
+								<Label>Glass</Label>
+								<Image src="~/checkmark.png" v-if="glass" stretch="stretch"/>
+							</FlexboxLayout>
+
+							<FlexboxLayout flexDirection="column" alignItems="center">
+								<Label>Ice</Label>
+								<Image src="~/checkmark.png" v-if="ice" stretch="stretch"/>
+							</FlexboxLayout>
+
+							<FlexboxLayout flexDirection="column" alignItems="center">
+								<Label>Method</Label>
+								<Image src="~/checkmark.png" v-if="method" stretch="stretch"/>
+							</FlexboxLayout>
+
+							<FlexboxLayout flexDirection="column" alignItems="center">
+								<Label>Ingredients</Label>
+								<Image src="~/checkmark.png" v-if="ingredients" stretch="stretch"/>
+							</FlexboxLayout>
+
+							<FlexboxLayout flexDirection="column" alignItems="center">
+								<Label>Garnish</Label>
+								<Image src="~/checkmark.png" v-if="garnish" stretch="stretch"/>
+							</FlexboxLayout>
+
+							<FlexboxLayout flexDirection="column" alignItems="center">
+								<Label>Misc.</Label>
+								<Image src="~/checkmark.png" v-if="misc"/>
+							</FlexboxLayout>
+
 						</FlexboxLayout>
 					</DockLayout>
 
