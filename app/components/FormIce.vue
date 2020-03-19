@@ -1,7 +1,9 @@
 <template>
-		<WrapLayout>
-				<Label text="Ice" class="h2 text-center" />
-		</WrapLayout>
+	<ScrollView verticalAlign="middle">
+  	<FlexboxLayout flexWrap="wrap" alignItems="center" justifyContent="center">
+      <Button v-for="ice of ices" :key="ice" @tap="set(ice)" class="h2 -primary -rounded-sm" flexGrow="1" height="60" width="120">{{ ice }}</Button>
+  	</FlexboxLayout>
+	</ScrollView>
 </template>
 
 <script>
@@ -9,7 +11,13 @@
 		name: 'FormIce',
 
 		props: {
-			iceTypes: Array // Of strings
+			ices: Array // Of strings
+		},
+
+		methods: {
+			set(iceData) {
+				this.$emit('input', iceData)
+			}
 		}
 	}
 </script>

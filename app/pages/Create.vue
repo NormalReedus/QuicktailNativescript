@@ -10,112 +10,107 @@
 
 
         <DockLayout stretchLastChild="true">
-					<DockLayout id="test" dock="bottom" justifyContent="space-between" stretchLastChild="true" background="">
+					<DockLayout dock="bottom" justifyContent="space-between" stretchLastChild="true">
 						<StackLayout dock="right">
-								<Button text="Discard" class="-outline"/>
-								<Button text="Save" class="-primary" @tap="saveCocktail"/>
+							<Button text="Discard" class="-outline"/>
+							<Button text="Save" class="-primary" @tap="saveCocktail"/>
 						</StackLayout>
 
 						<FlexboxLayout flexWrap="nowrap" justifyContent="space-around" dock="left">
 
-							<FlexboxLayout flexDirection="column" alignItems="center" background="blue">
+							<FlexboxLayout flexDirection="column" alignItems="center">
 								<Label>Glass</Label>
-								<Image src="~/checkmark.png" v-if="glass" stretch="stretch"/>
+								<Image src="~/checkmark.png" v-if="glassData" stretch="stretch"/>
 							</FlexboxLayout>
 
 							<FlexboxLayout flexDirection="column" alignItems="center">
 								<Label>Ice</Label>
-								<Image src="~/checkmark.png" v-if="ice" stretch="stretch"/>
+								<Image src="~/checkmark.png" v-if="iceData" stretch="stretch"/>
 							</FlexboxLayout>
 
 							<FlexboxLayout flexDirection="column" alignItems="center">
 								<Label>Method</Label>
-								<Image src="~/checkmark.png" v-if="method" stretch="stretch"/>
+								<Image src="~/checkmark.png" v-if="methodData" stretch="stretch"/>
 							</FlexboxLayout>
 
 							<FlexboxLayout flexDirection="column" alignItems="center">
 								<Label>Ingredients</Label>
-								<Image src="~/checkmark.png" v-if="ingredients" stretch="stretch"/>
+								<Image src="~/checkmark.png" v-if="ingredientsData" stretch="stretch"/>
 							</FlexboxLayout>
 
 							<FlexboxLayout flexDirection="column" alignItems="center">
 								<Label>Garnish</Label>
-								<Image src="~/checkmark.png" v-if="garnish" stretch="stretch"/>
+								<Image src="~/checkmark.png" v-if="garnishData" stretch="stretch"/>
 							</FlexboxLayout>
 
 							<FlexboxLayout flexDirection="column" alignItems="center">
 								<Label>Misc.</Label>
-								<Image src="~/checkmark.png" v-if="misc"/>
+								<Image src="~/checkmark.png" v-if="miscData" stretch="stretch"/>
 							</FlexboxLayout>
 
 						</FlexboxLayout>
 					</DockLayout>
 
-            <Tabs dock="top" v-model="selectedIndex">
-                <TabStrip>
-                    <TabStripItem>
-                        <Label>Glass</Label>
-                        <!-- <Image src="res://home"></Image> -->
-                    </TabStripItem>
+					<Tabs dock="top" v-model="selectedIndex">
+            <TabStrip>
+              <TabStripItem>
+                <Label>Glass</Label>
+                <!-- <Image src="res://home"></Image> -->
+              </TabStripItem>
 
-                    <TabStripItem>
-                        <Label>Ice</Label>
-                        <!-- <Image src="res://settings"></Image> -->
-                    </TabStripItem>
+              <TabStripItem>
+                <Label>Ice</Label>
+                <!-- <Image src="res://settings"></Image> -->
+              </TabStripItem>
 
-                    <TabStripItem>
-                        <Label>Method</Label>
-                        <!-- <Image src="res://search"></Image> -->
-                    </TabStripItem>
+              <TabStripItem>
+                <Label>Method</Label>
+                <!-- <Image src="res://search"></Image> -->
+              </TabStripItem>
 
-                    <TabStripItem>
-                        <Label>Ingredients</Label>
-                        <!-- <Image src="res://search"></Image> -->
-                    </TabStripItem>
+              <TabStripItem>
+                <Label>Ingredients</Label>
+                <!-- <Image src="res://search"></Image> -->
+              </TabStripItem>
 
-                    <TabStripItem>
-                        <Label>Garnish</Label>
-                        <!-- <Image src="res://search"></Image> -->
-                    </TabStripItem>
+              <TabStripItem>
+                <Label>Garnish</Label>
+                <!-- <Image src="res://search"></Image> -->
+              </TabStripItem>
 
-                    <TabStripItem>
-                        <Label>Misc.</Label>
-                        <!-- <Image src="res://search"></Image> -->
-                    </TabStripItem>
-                </TabStrip>
+              <TabStripItem>
+                <Label>Misc.</Label>
+                <!-- <Image src="res://search"></Image> -->
+              </TabStripItem>
+            </TabStrip>
 
+            <TabContentItem>
+							<FormGlass :glasses="glasses" @input="set('glassData', $event)" />
+            </TabContentItem>
 
+            <TabContentItem>
+							<FormIce :ices="ices" @input="set('iceData', $event)" />
+            </TabContentItem>
 
-                <TabContentItem>
-										<FormGlass :glassTypes="glassTypes" @input="setGlass($event)" />
-                </TabContentItem>
+						<TabContentItem>
+							<FormMethod :methods="methods" @input="set('methodData', $event)" />
+            </TabContentItem>
 
-                <TabContentItem>
-										<FormIce :iceTypes="iceTypes" @input="ice = $event" />
-                </TabContentItem>
+						<TabContentItem>
+							<FormIngredients @input="set('ingredientsData', $event)" />
+            </TabContentItem>
 
-								<TabContentItem>
-										<FormMethod :methods="methods" @input="method = $event" />
-                </TabContentItem>
+						<TabContentItem>
+              <Label class="h2 text-center">Garnish</Label>
+							<!-- <FormGarnish :garnishes="garnishes" @input="set('garnishData', $event)" /> -->
+            </TabContentItem>
 
-								<TabContentItem>
-										<FormIngredients @input="ingredients = $event" />
-                </TabContentItem>
-
-								<TabContentItem>
-                    <Label class="h2 text-center">Garnish</Label>
-										<!-- <FormGarnish :garnishes="garnishes" @input="garnish = $event" /> -->
-                </TabContentItem>
-
-								<TabContentItem>
-                    <Label text="Misc" class="h2 text-center" />
-										<!-- <FormMisc @input="misc = $event" /> -->
-                </TabContentItem>
-            </Tabs>
+						<TabContentItem>
+              <Label class="h2 text-center">Misc.</Label>
+							<!-- <FormMisc @input="set('miscData', $event)" /> -->
+            </TabContentItem>
+          </Tabs>
         </DockLayout>
-
-
-        <!-- <Label text="Add" /> -->
     </Page>
 </template>
 
@@ -144,26 +139,26 @@ const appSettings = require('tns-core-modules/application-settings')
 
         data() {
             return {
-							glassTypes: JSON.parse(appSettings.getString('glassTypes')),
-							iceTypes: JSON.parse(appSettings.getString('iceTypes')),
+							glasses: JSON.parse(appSettings.getString('glasses')),
+							ices: JSON.parse(appSettings.getString('ices')),
 							methods: JSON.parse(appSettings.getString('methods')),
 							garnishes: JSON.parse(appSettings.getString('garnishes')),
 
-							glass: null,
-							ice: null,
-							method: null,
-							ingredients: null,
-							garnish: null,
-							misc: null,
+							glassData: null,
+							iceData: null,
+							methodData: null,
+							ingredientsData: null,
+							garnishData: null,
+							miscData: null,
 
 							selectedIndex: 0 // "Glass" is first tab shown
 						}
         },
 
 				methods: {
-					setGlass(glassName) {
-						this.glass = glassName
-						this.nextTab()
+					set(prop, value) {
+						this[prop] = value
+						// this.nextTab()
 					},
 
 					saveCocktail() {

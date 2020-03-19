@@ -1,7 +1,7 @@
 <template>
 	<ScrollView verticalAlign="middle">
   	<FlexboxLayout flexWrap="wrap" alignItems="center" justifyContent="center">
-      <Button v-for="glass of glassTypes" :key="glass" @tap="setGlass(glass)" class="h2 -primary -rounded-sm" flexGrow="1" height="60" width="120">{{ glass }}</Button>
+      <Button v-for="glass of glasses" :key="glass" @tap="set(glass)" class="h2 -primary -rounded-sm" flexGrow="1" height="60" width="120">{{ glass }}</Button>
   	</FlexboxLayout>
 	</ScrollView>
 </template>
@@ -10,7 +10,7 @@
 export default {
 	name: 'FormGlass',
 	props: {
-		glassTypes: Array, // Of strings
+		glasses: Array, // Of strings
 	},
 
 	components: {},
@@ -22,8 +22,8 @@ export default {
 	},
 
 	methods: {
-		setGlass(glassName) {
-			this.$emit('input', glassName)
+		set(glassData) {
+			this.$emit('input', glassData)
 		}
 	}
 

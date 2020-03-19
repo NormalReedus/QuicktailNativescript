@@ -20,12 +20,12 @@ new Vue({
 		},
 		
 		created() {
-			if (!appSettings.hasKey('glassTypes')) {
-				appSettings.setString('glassTypes', defaults.glassTypes)
+			if (!appSettings.hasKey('glasses')) {
+				appSettings.setString('glasses', defaults.glasses)
 			}
 			
-			if (!appSettings.hasKey('iceTypes')) {
-				appSettings.setString('iceTypes', defaults.iceTypes)
+			if (!appSettings.hasKey('ices')) {
+				appSettings.setString('ices', defaults.ices)
 			}
 			
 			if (!appSettings.hasKey('methods')) {

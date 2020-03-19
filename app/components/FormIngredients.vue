@@ -1,12 +1,31 @@
 <template>
-		<StackLayout orientation="vertical">
-				<Label text="Ingredients" class="h2 text-center" />
-		</StackLayout>
+		<ScrollView>
+			<StackLayout orientation="vertical">
+				<FlexboxLayout v-for="ingredient of ingredients" :key="ingredient">
+					<Label>{{ ingredient }}</Label>
+					<Button>x</Button>
+				</FlexboxLayout>
+
+				<FlexboxLayout>
+					
+        	<TextField hint="Add" class="nt-input m-x-15" flexGrow="1"></TextField>
+    			
+				</FlexboxLayout>
+			</StackLayout>
+		</ScrollView>
 </template>
 
 <script>
 	export default {
-		name: 'FormIngredients'
+		name: 'FormIngredients',
+
+		data() {
+			return {
+				ingredients: [
+					'Hello'
+				]
+			}
+		}
 	}
 </script>
 
