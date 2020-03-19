@@ -1,5 +1,5 @@
 export default {
-	glassTypes: JSON.stringify([
+	glasses: JSON.stringify([
 		'Highball',
 		'Rocks',
 		'Collins',
@@ -7,7 +7,7 @@ export default {
 		'Martini'
 	]),
 
-	iceTypes: JSON.stringify([
+	ices: JSON.stringify([
 		'Cubed',
 		'Crushed',
 		'None'
@@ -15,8 +15,10 @@ export default {
 
 	methods: JSON.stringify([
 		'Build',
+		'Stir',
 		'Shake',
-		'Stir'
+		'Dry Shake',
+		'Reverse Dry Shake'
 	]),
 
 	garnishes: JSON.stringify([
