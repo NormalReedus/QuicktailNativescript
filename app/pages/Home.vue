@@ -29,7 +29,7 @@
 						<TextField v-model="keyToFind" hint="Find Key..." width="200"/>
 						<Button @tap="key" class="-primary">Key</Button>
 						<Button @tap="keys" class="-outline">All Keys</Button>
-						<Button @tap="val" class="-outline">Value</Button>
+						<Button @tap="test" class="-outline">Test</Button>
 						<Button @tap="clear" class="-danger">Clear</Button>
 
         </FlexboxLayout>
@@ -83,13 +83,12 @@
 							console.log(appSettings.getAllKeys())
 						},
 
-						val() {
-							console.log(appSettings.getString('glassTypes'))
+						test() {
+							console.log(JSON.parse(appSettings.getString('cocktails'))[0])
 						},
 
 						clear() {
-							appSettings.clear()
-							console.log(appSettings.getAllKeys())
+							appSettings.setString('cocktails', '[]')
 						}
 
 
