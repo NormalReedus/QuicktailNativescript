@@ -1,5 +1,5 @@
 <template>
-		<ScrollView verticalAlign="middle">
+	<ScrollView verticalAlign="middle">
   	<FlexboxLayout flexWrap="wrap" alignItems="center" justifyContent="center">
       <Button v-for="method of methods" :key="method" @tap="set(method)" class="h2 -primary -rounded-sm" flexGrow="1" height="60" width="120">{{ method }}</Button>
   	</FlexboxLayout>

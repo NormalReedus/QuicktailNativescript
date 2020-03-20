@@ -20,6 +20,14 @@ new Vue({
 		},
 		
 		created() {
+			if (!appSettings.hasKey('units')) {
+				appSettings.setString('units', defaults.units)
+			}
+
+			if (!appSettings.hasKey('selectedUnitIndex')) {
+				appSettings.setNumber('selectedUnitIndex', defaults.selectedUnitIndex)
+			}
+
 			if (!appSettings.hasKey('glasses')) {
 				appSettings.setString('glasses', defaults.glasses)
 			}

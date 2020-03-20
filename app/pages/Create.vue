@@ -51,7 +51,7 @@
 						</FlexboxLayout>
 					</DockLayout>
 
-					<Tabs dock="top" v-model="selectedIndex">
+					<Tabs dock="top" v-model="selectedTabIndex">
             <TabStrip>
               <TabStripItem>
                 <Label>Glass</Label>
@@ -127,7 +127,8 @@ const appSettings = require('tns-core-modules/application-settings')
 
 
     export default {
-        name: "Create",
+				name: "Create",
+				
 				components: {
 					FormGlass,
 					FormIce,
@@ -151,7 +152,7 @@ const appSettings = require('tns-core-modules/application-settings')
 							garnishData: null,
 							miscData: null,
 
-							selectedIndex: 0 // "Glass" is first tab shown
+							selectedTabIndex: 0 // "Glass" is first tab shown
 						}
         },
 
@@ -179,8 +180,8 @@ const appSettings = require('tns-core-modules/application-settings')
 					},
 
 					nextTab() {
-						if (this.selectedIndex < 5) { // less than number of tabs
-							this.selectedIndex++
+						if (this.selectedTabIndex < 5) { // less than number of tabs
+							this.selectedTabIndex++
 						}
 					}
 				},

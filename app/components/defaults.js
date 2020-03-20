@@ -1,4 +1,12 @@
 export default {
+	units: JSON.stringify([
+		'cl',
+		'ml',
+		'bsp.',
+	]),
+
+	selectedUnitIndex: 0,
+
 	glasses: JSON.stringify([
 		'Highball',
 		'Rocks',

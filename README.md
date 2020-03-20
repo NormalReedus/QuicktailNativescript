@@ -20,3 +20,4 @@
 - Mulighed for billeder / tegninger + tilføjelse af glas, is, metoder etc
 - Lav create siden om til at bruge v-for
 - Se forskellen på listview og stack
+- Lav et display af valgt unit i ingredients og så hav en event, der åbner list picker i full screen, når den tappes
