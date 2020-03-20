@@ -20,33 +20,33 @@ new Vue({
 		},
 		
 		created() {
-			if (!appSettings.hasKey('units')) {
+			// if (!appSettings.hasKey('units')) {
 				appSettings.setString('units', defaults.units)
-			}
+			// }
 
-			if (!appSettings.hasKey('selectedUnitIndex')) {
-				appSettings.setNumber('selectedUnitIndex', defaults.selectedUnitIndex)
-			}
+			// if (!appSettings.hasKey('selectedUnitIndex')) {
+				appSettings.setNumber('defaultUnitIndex', defaults.defaultUnitIndex)
+			// }
 
-			if (!appSettings.hasKey('glasses')) {
+			// if (!appSettings.hasKey('glasses')) {
 				appSettings.setString('glasses', defaults.glasses)
-			}
+			// }
 			
-			if (!appSettings.hasKey('ices')) {
+			// if (!appSettings.hasKey('ices')) {
 				appSettings.setString('ices', defaults.ices)
-			}
+			// }
 			
-			if (!appSettings.hasKey('methods')) {
+			// if (!appSettings.hasKey('methods')) {
 				appSettings.setString('methods', defaults.methods)
-			}
+			// }
 			
-			if (!appSettings.hasKey('garnishes')) {
+			// if (!appSettings.hasKey('garnishes')) {
 				appSettings.setString('garnishes', defaults.garnishes)
-			}	
+			// }	
 
-			if (!appSettings.hasKey('cocktails')) {
+			// if (!appSettings.hasKey('cocktails')) {
 				appSettings.setString('cocktails', '[]')
-			}
+			// }
 		}
 
 		// data() {

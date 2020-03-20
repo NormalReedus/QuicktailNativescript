@@ -1,18 +1,18 @@
 <template>
 		<ScrollView>
 			<StackLayout orientation="vertical">
-				<FlexboxLayout v-for="ingredient of ingredients" :key="ingredient" alignItems="center" class="m-x-15">
+				<FlexboxLayout v-for="ingredient of ingredientsData" :key="ingredient" alignItems="center" class="m-x-15">
 					<Label>{{ ingredient }}</Label>
 					<Button>x</Button>
 				</FlexboxLayout>
 
 				<FlexboxLayout alignItems="center">
 					
-					<TextField hint="Amount" keyboardType="number"></TextField>
+					<TextField hint="Amount" keyboardType="number" v-model="amt"></TextField>
 
-					<!-- <ListPicker :items="units" v-model="selectedUnitIndex"/> -->
+					<ListPicker :items="units" :selectedIndex="unitIndex" @selectedIndexChange="setUnitIndex($event.value)"/>
 
-        	<TextField hint="Ingredient" class="nt-input m-x-15" flexGrow="1"></TextField>
+        	<TextField hint="Ingredient" class="nt-input m-x-15" flexGrow="1" v-model="ingredient"></TextField>
     			
 				</FlexboxLayout>
 			</StackLayout>
@@ -23,24 +23,32 @@
 	const appSettings = require('tns-core-modules/application-settings')
 	
 	const units = JSON.parse(appSettings.getString('units'))
-	const selectedUnitIndex = appSettings.getNumber('selectedUnitIndex')
+	const defaultUnitIndex = appSettings.getNumber('defaultUnitIndex')
 
 	export default {
 		name: 'FormIngredients',
 
 		data() {
 			return {
-				ingredients: [
+				ingredientsData: [
 					'Hello',
 					'Gday'
 					
 				],
 
 				units,
-				selectedUnitIndex
+				unitIndex: defaultUnitIndex,
 
+				amt: '',
+				ingredient: ''
 			}
-		}
+		},
+
+		methods: {
+			setUnitIndex(val) {
+				this.unitIndex = val
+			}
+		},
 	}
 </script>
 

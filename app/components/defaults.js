@@ -5,7 +5,7 @@ export default {
 		'bsp.',
 	]),
 
-	selectedUnitIndex: 0,
+	defaultUnitIndex: 0,
 
 	glasses: JSON.stringify([
 		'Highball',
