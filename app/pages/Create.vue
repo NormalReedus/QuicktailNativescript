@@ -10,74 +10,35 @@
       </StackLayout>
     </ActionBar>
 
-    <DockLayout stretchLastChild="true">
-      <DockLayout dock="bottom" justifyContent="space-between" stretchLastChild="true">
-        <StackLayout dock="right">
-          <Button text="Save" class="-primary" @tap="saveCocktail" />
-          <Button text="Discard" class="-outline" />
-        </StackLayout>
-
-        <FlexboxLayout flexWrap="nowrap" justifyContent="space-around" dock="left">
-          <FlexboxLayout flexDirection="column" alignItems="center">
-            <Label>Glass</Label>
-            <Image src="~/checkmark.png" v-if="glassData" stretch="stretch" />
-          </FlexboxLayout>
-
-          <FlexboxLayout flexDirection="column" alignItems="center">
-            <Label>Ice</Label>
-            <Image src="~/checkmark.png" v-if="iceData" stretch="stretch" />
-          </FlexboxLayout>
-
-          <FlexboxLayout flexDirection="column" alignItems="center">
-            <Label>Method</Label>
-            <Image src="~/checkmark.png" v-if="methodData" stretch="stretch" />
-          </FlexboxLayout>
-
-          <FlexboxLayout flexDirection="column" alignItems="center">
-            <Label>Ingredients</Label>
-            <Image src="~/checkmark.png" v-if="ingredientsData" stretch="stretch" />
-          </FlexboxLayout>
-
-          <FlexboxLayout flexDirection="column" alignItems="center">
-            <Label>Garnish</Label>
-            <Image src="~/checkmark.png" v-if="garnishData" stretch="stretch" />
-          </FlexboxLayout>
-
-          <FlexboxLayout flexDirection="column" alignItems="center">
-            <Label>Misc.</Label>
-            <Image src="~/checkmark.png" v-if="miscData" stretch="stretch" />
-          </FlexboxLayout>
-        </FlexboxLayout>
-      </DockLayout>
-
-      <Tabs dock="top" v-model="selectedTabIndex">
+    <GridLayout rows="*, auto" columns="*">
+      <Tabs v-model="selectedTabIndex" row="0">
         <TabStrip>
-          <TabStripItem>
+          <TabStripItem :class="{ filled: glassData }">
             <Label>Glass</Label>
             <!-- <Image src="res://home"></Image> -->
           </TabStripItem>
 
-          <TabStripItem>
+          <TabStripItem :class="{ filled: iceData }">
             <Label>Ice</Label>
             <!-- <Image src="res://settings"></Image> -->
           </TabStripItem>
 
-          <TabStripItem>
+          <TabStripItem :class="{ filled: methodData }">
             <Label>Method</Label>
             <!-- <Image src="res://search"></Image> -->
           </TabStripItem>
 
-          <TabStripItem>
+          <TabStripItem :class="{ filled: ingredientsData }">
             <Label>Ingredients</Label>
             <!-- <Image src="res://search"></Image> -->
           </TabStripItem>
 
-          <TabStripItem>
+          <TabStripItem :class="{ filled: garnishData }">
             <Label>Garnish</Label>
             <!-- <Image src="res://search"></Image> -->
           </TabStripItem>
 
-          <TabStripItem>
+          <TabStripItem :class="{ filled: miscData }">
             <Label>Misc.</Label>
             <!-- <Image src="res://search"></Image> -->
           </TabStripItem>
@@ -109,7 +70,47 @@
           <!-- <FormMisc @input="set('miscData', $event)" /> -->
         </TabContentItem>
       </Tabs>
-    </DockLayout>
+
+      <StackLayout row="1">
+        <Button text="Save" class="-primary" @tap="saveCocktail" />
+        <Button text="Discard" class="-outline" @tap="discardCocktail" />
+      </StackLayout>
+
+      <!-- <DockLayout stretchLastChild="true"> -->
+
+      <!-- <FlexboxLayout flexWrap="nowrap" justifyContent="space-around" dock="left">
+          <FlexboxLayout flexDirection="column" alignItems="center">
+            <Label>Glass</Label>
+            <Image src="~/checkmark.png" v-if="glassData" stretch="stretch" />
+          </FlexboxLayout>
+
+          <FlexboxLayout flexDirection="column" alignItems="center">
+            <Label>Ice</Label>
+            <Image src="~/checkmark.png" v-if="iceData" stretch="stretch" />
+          </FlexboxLayout>
+
+          <FlexboxLayout flexDirection="column" alignItems="center">
+            <Label>Method</Label>
+            <Image src="~/checkmark.png" v-if="methodData" stretch="stretch" />
+          </FlexboxLayout>
+
+          <FlexboxLayout flexDirection="column" alignItems="center">
+            <Label>Ingredients</Label>
+            <Image src="~/checkmark.png" v-if="ingredientsData" stretch="stretch" />
+          </FlexboxLayout>
+
+          <FlexboxLayout flexDirection="column" alignItems="center">
+            <Label>Garnish</Label>
+            <Image src="~/checkmark.png" v-if="garnishData" stretch="stretch" />
+          </FlexboxLayout>
+
+          <FlexboxLayout flexDirection="column" alignItems="center">
+            <Label>Misc.</Label>
+            <Image src="~/checkmark.png" v-if="miscData" stretch="stretch" />
+          </FlexboxLayout>
+        </FlexboxLayout>
+      </DockLayout>-->
+    </GridLayout>
   </Page>
 </template>
 
@@ -123,6 +124,7 @@ import FormMisc from '@/components/FormMisc'
 
 import Cocktail from '@/components/Cocktail'
 const appSettings = require('tns-core-modules/application-settings')
+const dialogs = require("tns-core-modules/ui/dialogs");
 
 export default {
 	name: 'Create',
@@ -177,13 +179,23 @@ export default {
 			appSettings.setString('cocktails', JSON.stringify(cocktails))
 		},
 
-		discardCocktail() {
-			this.glass = null
-			this.ice = null
-			this.method = null
-			this.ingredients = null
-			this.garnish = null
-			this.misc = null
+		async discardCocktail() {
+			const discard = await dialogs.confirm({
+				title: "Discard Coctail?",
+				okButtonText: "Discard",
+				cancelButtonText: "Cancel"
+			})
+
+			if (discard) {
+				this.glass = null
+				this.ice = null
+				this.method = null
+				this.ingredients = null
+				this.garnish = null
+				this.misc = null
+
+				this.$navigateBack()
+			} 
 		},
 
 		nextTab() {
@@ -197,4 +209,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.filled {
+	color: lightgreen;
+}
 </style>

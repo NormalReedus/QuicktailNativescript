@@ -2,18 +2,18 @@
 		<ListPicker v-if="unitPickerShown" :items="units" :selectedIndex="unitIndex" @selectedIndexChange="setUnitIndex($event.value)" @tap="toggleUnitPicker"/>
 		
 		<ScrollView v-else>
-			<StackLayout orientation="vertical">
-				<FlexboxLayout v-for="ingredient of ingredientsData" :key="ingredient" alignItems="center" justifyContent="space-between" class="m-x-15">
-					<Label>{{ ingredient }}</Label>
-					<Button>x</Button>
+			<StackLayout orientation="vertical" class="m-x-15">
+				<FlexboxLayout v-for="ingredient of ingredientsData" :key="ingredient" alignItems="center" justifyContent="flex-end" >
+					<Label flexGrow="1">{{ ingredient }}</Label>
+					<Button class="-rounded-lg">x</Button>
 				</FlexboxLayout>
 
 				<FlexboxLayout alignItems="center">
 					
 					<TextField hint="Amount" keyboardType="number" v-model="amt"></TextField>
-					<Button @tap="toggleUnitPicker">{{ selectedUnit }}</Button>
-        	<TextField hint="Ingredient" class="nt-input m-x-15" flexGrow="1" v-model="ingredient" @returnPress="setIngredient"></TextField>
-    			<Button @tap="setIngredient">+</Button>
+					<Button @tap="toggleUnitPicker" class="-rounded-lg">{{ selectedUnit }}</Button>
+        	<TextField hint="Ingredient" class="nt-input" flexGrow="1" v-model="ingredient" @returnPress="setIngredient"></TextField>
+    			<Button @tap="setIngredient" class="-rounded-lg">+</Button>
 
 				</FlexboxLayout>
 			</StackLayout>
@@ -65,10 +65,19 @@
 				this.ingredient = ''
 				this.amt = ''
 
+				this.set(this.ingredientsData)
 			},
+
+			// Ved slettelse af ingredient skal vi også kalde this.set() igen
 
 			toggleUnitPicker() {
 				this.unitPickerShown = !this.unitPickerShown
+			},
+
+			set(ingredientsData) {
+				if (this.ingredientsData.length === 0) return
+				
+				this.$emit('input', ingredientsData)
 			}
 		},
 
@@ -84,4 +93,8 @@
 
 <style lang="scss" scoped>
 
+
+Button {
+	width: 10;
+}
 </style>
