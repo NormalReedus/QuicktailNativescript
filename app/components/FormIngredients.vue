@@ -5,7 +5,7 @@
 			<StackLayout orientation="vertical" class="m-x-15">
 				<FlexboxLayout v-for="ingredient of ingredientsData" :key="ingredient" alignItems="center" justifyContent="flex-end" >
 					<Label flexGrow="1">{{ ingredient }}</Label>
-					<Button class="-rounded-lg">x</Button>
+					<Button class="-rounded-lg" @tap="test($event.object.className)">x</Button>
 				</FlexboxLayout>
 
 				<FlexboxLayout alignItems="center">
@@ -66,6 +66,10 @@
 				this.amt = ''
 
 				this.set(this.ingredientsData)
+			},
+
+			test(e) {
+				console.log(e)
 			},
 
 			// Ved slettelse af ingredient skal vi også kalde this.set() igen

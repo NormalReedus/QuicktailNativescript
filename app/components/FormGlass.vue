@@ -9,17 +9,12 @@
 <script>
 export default {
 	name: 'FormGlass',
-	props: {
-		glasses: Array, // Of strings
-	},
 
-	components: {},
-
-	data() {
-		return {
-			glasses: [], // Loads from appSettings
+	computed: {
+		glasses() {
+			return this.$store.state.glasses
 		}
-	},
+	}
 
 	methods: {
 		set(glassData) {

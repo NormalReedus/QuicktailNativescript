@@ -45,29 +45,29 @@
         </TabStrip>
 
         <TabContentItem>
-          <FormGlass :glasses="glasses" @input="set('glassData', $event)" />
+          <FormGlass @input="update('glassData', $event)" />
         </TabContentItem>
 
         <TabContentItem>
-          <FormIce :ices="ices" @input="set('iceData', $event)" />
+          <FormIce :ices="ices" @input="update('iceData', $event)" />
         </TabContentItem>
 
         <TabContentItem>
-          <FormMethod :methods="methods" @input="set('methodData', $event)" />
+          <FormMethod :methods="methods" @input="update('methodData', $event)" />
         </TabContentItem>
 
         <TabContentItem>
-          <FormIngredients @input="set('ingredientsData', $event)" />
+          <FormIngredients @input="update('ingredientsData', $event)" />
         </TabContentItem>
 
         <TabContentItem>
           <Label class="h2 text-center">Garnish</Label>
-          <!-- <FormGarnish :garnishes="garnishes" @input="set('garnishData', $event)" /> -->
+          <!-- <FormGarnish :garnishes="garnishes" @input="update('garnishData', $event)" /> -->
         </TabContentItem>
 
         <TabContentItem>
           <Label class="h2 text-center">Misc.</Label>
-          <!-- <FormMisc @input="set('miscData', $event)" /> -->
+          <!-- <FormMisc @input="update('miscData', $event)" /> -->
         </TabContentItem>
       </Tabs>
 
@@ -75,41 +75,6 @@
         <Button text="Save" class="-primary" @tap="saveCocktail" />
         <Button text="Discard" class="-outline" @tap="discardCocktail" />
       </StackLayout>
-
-      <!-- <DockLayout stretchLastChild="true"> -->
-
-      <!-- <FlexboxLayout flexWrap="nowrap" justifyContent="space-around" dock="left">
-          <FlexboxLayout flexDirection="column" alignItems="center">
-            <Label>Glass</Label>
-            <Image src="~/checkmark.png" v-if="glassData" stretch="stretch" />
-          </FlexboxLayout>
-
-          <FlexboxLayout flexDirection="column" alignItems="center">
-            <Label>Ice</Label>
-            <Image src="~/checkmark.png" v-if="iceData" stretch="stretch" />
-          </FlexboxLayout>
-
-          <FlexboxLayout flexDirection="column" alignItems="center">
-            <Label>Method</Label>
-            <Image src="~/checkmark.png" v-if="methodData" stretch="stretch" />
-          </FlexboxLayout>
-
-          <FlexboxLayout flexDirection="column" alignItems="center">
-            <Label>Ingredients</Label>
-            <Image src="~/checkmark.png" v-if="ingredientsData" stretch="stretch" />
-          </FlexboxLayout>
-
-          <FlexboxLayout flexDirection="column" alignItems="center">
-            <Label>Garnish</Label>
-            <Image src="~/checkmark.png" v-if="garnishData" stretch="stretch" />
-          </FlexboxLayout>
-
-          <FlexboxLayout flexDirection="column" alignItems="center">
-            <Label>Misc.</Label>
-            <Image src="~/checkmark.png" v-if="miscData" stretch="stretch" />
-          </FlexboxLayout>
-        </FlexboxLayout>
-      </DockLayout>-->
     </GridLayout>
   </Page>
 </template>
@@ -122,8 +87,6 @@ import FormIngredients from '@/components/FormIngredients'
 import FormGarnish from '@/components/FormGarnish'
 import FormMisc from '@/components/FormMisc'
 
-import Cocktail from '@/components/Cocktail'
-const appSettings = require('tns-core-modules/application-settings')
 const dialogs = require("tns-core-modules/ui/dialogs");
 
 export default {
@@ -140,43 +103,44 @@ export default {
 
 	data() {
 		return {
-			glasses: JSON.parse(appSettings.getString('glasses')),
-			ices: JSON.parse(appSettings.getString('ices')),
-			methods: JSON.parse(appSettings.getString('methods')),
-			garnishes: JSON.parse(appSettings.getString('garnishes')),
-
-			glassData: null,
-			iceData: null,
-			methodData: null,
-			ingredientsData: null,
-			garnishData: null,
-			miscData: null,
-
 			selectedTabIndex: 0, // "Glass" is first tab shown
 		}
 	},
 
+	computed: {
+		glassData() {
+			return this.$store.state.glassData
+		},
+
+		iceData() {
+			return this.$store.state.iceData
+		},
+
+		methodData() {
+			return this.$store.state.methodData
+		},
+
+		ingredientsData() {
+			return this.$store.state.ingredientsData
+		},
+
+		garnishData() {
+			return this.$store.state.garnishData
+		},
+
+		miscData() {
+			return this.$store.state.miscData
+		}
+	},
+
 	methods: {
-		set(prop, value) {
-			this[prop] = value
+		update(prop, val) {
+			this.$store.commit('update', { prop, val })
 			// this.nextTab()
 		},
 
 		saveCocktail() {
-			let cocktails = JSON.parse(appSettings.getString('cocktails'))
-
-			cocktails.push(
-				new Cocktail(
-					this.glassData,
-					this.iceData,
-					this.methodData,
-					this.ingredientsData,
-					this.garnishData,
-					this.miscData
-				)
-			)
-
-			appSettings.setString('cocktails', JSON.stringify(cocktails))
+			this.$store.commit('saveCocktail')
 		},
 
 		async discardCocktail() {
@@ -187,12 +151,7 @@ export default {
 			})
 
 			if (discard) {
-				this.glass = null
-				this.ice = null
-				this.method = null
-				this.ingredients = null
-				this.garnish = null
-				this.misc = null
+				this.$store.commit('discardCocktail')
 
 				this.$navigateBack()
 			} 
