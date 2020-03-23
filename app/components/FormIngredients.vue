@@ -1,11 +1,11 @@
 <template>
-		<ListPicker v-if="unitPickerShown" :items="units" :selectedIndex="unitIndex" @selectedIndexChange="setUnitIndex($event.value)" @tap="toggleUnitPicker"/>
+		<ListPicker v-if="unitPickerShown" :items="units" :selectedIndex="unitIndex" @selectedIndexChange="setUnitIndex($event)" @tap="toggleUnitPicker"/>
 		
 		<ScrollView v-else>
 			<StackLayout orientation="vertical" class="m-x-15">
 				<FlexboxLayout v-for="ingredient of ingredientsData" :key="ingredient" alignItems="center" justifyContent="flex-end" >
 					<Label flexGrow="1">{{ ingredient }}</Label>
-					<Button class="-rounded-lg" @tap="test($event.object.className)">x</Button>
+					<Button class="-rounded-lg" @tap="removeIngredient(ingredient)">x</Button>
 				</FlexboxLayout>
 
 				<FlexboxLayout alignItems="center">
@@ -13,7 +13,7 @@
 					<TextField hint="Amount" keyboardType="number" v-model="amt"></TextField>
 					<Button @tap="toggleUnitPicker" class="-rounded-lg">{{ selectedUnit }}</Button>
         	<TextField hint="Ingredient" class="nt-input" flexGrow="1" v-model="ingredient" @returnPress="setIngredient"></TextField>
-    			<Button @tap="setIngredient" class="-rounded-lg">+</Button>
+    			<Button @tap="addIngredient" class="-rounded-lg">+</Button>
 
 				</FlexboxLayout>
 			</StackLayout>
@@ -31,12 +31,6 @@
 
 		data() {
 			return {
-				ingredientsData: [
-					'Hello',
-					'Gday'
-					
-				],
-
 				unitPickerShown: false,
 
 				units: [],
@@ -48,24 +42,37 @@
 		},
 
 		computed: {
+			ingredientsData() {
+				return this.$store.state.ingredientsData
+			},
+
 			selectedUnit() {
 				return this.units[this.unitIndex]
 			}
 		},
 
 		methods: {
-			setUnitIndex(val) {
-				this.unitIndex = val
+			setUnitIndex({ value }) {
+				this.unitIndex = value
 			},
 
-			setIngredient() {
+			addIngredient() {
 				if (!this.amt || !this.ingredient) return
-				this.ingredientsData.push(this.amt + " " + this.selectedUnit + " " + this.ingredient)
+
+				const data = this.amt + " " + this.selectedUnit + " " + this.ingredient
+
+				this.$store.commit('add', { array: 'ingredientsData', data })
 
 				this.ingredient = ''
 				this.amt = ''
 
-				this.set(this.ingredientsData)
+				console.log(this.ingredientsData)
+			},
+
+			removeIngredient(data) {
+				this.$store.commit('remove', { array: 'ingredientsData', data })
+
+				console.log(this.ingredientsData)
 			},
 
 			test(e) {
@@ -77,12 +84,6 @@
 			toggleUnitPicker() {
 				this.unitPickerShown = !this.unitPickerShown
 			},
-
-			set(ingredientsData) {
-				if (this.ingredientsData.length === 0) return
-				
-				this.$emit('input', ingredientsData)
-			}
 		},
 
 		created() {

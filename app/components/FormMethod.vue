@@ -1,7 +1,7 @@
 <template>
 	<ScrollView verticalAlign="middle">
   	<FlexboxLayout flexWrap="wrap" alignItems="center" justifyContent="center">
-      <Button v-for="method of methods" :key="method" @tap="set(method)" class="h2 -primary -rounded-sm" flexGrow="1" height="60" width="120">{{ method }}</Button>
+      <Button v-for="method of methods" :key="method" @tap="updateMethodData(method)" class="h2 -primary -rounded-sm" flexGrow="1" height="60" width="120">{{ method }}</Button>
   	</FlexboxLayout>
 	</ScrollView>
 </template>
@@ -10,14 +10,16 @@
 	export default {
 		name: 'FormMethod',
 
-		props: {
-			methods: Array // Of strings
+		computed: {
+			methods() {
+				return this.$store.state.methods
+			}
 		},
 
 		methods: {	
-			set(methodData) {
-				this.$emit('input', methodData)
-			}
+			updateMethodData(data) {
+				this.$store.commit('update', { prop: 'methodData', data })
+			},
 		}
 	}
 </script>

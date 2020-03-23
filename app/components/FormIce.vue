@@ -1,7 +1,7 @@
 <template>
 	<ScrollView verticalAlign="middle">
   	<FlexboxLayout flexWrap="wrap" alignItems="center" justifyContent="center">
-      <Button v-for="ice of ices" :key="ice" @tap="set(ice)" class="h2 -primary -rounded-sm" flexGrow="1" height="60" width="120">{{ ice }}</Button>
+      <Button v-for="ice of ices" :key="ice" @tap="updateIceData(ice)" class="h2 -primary -rounded-sm" flexGrow="1" height="60" width="120">{{ ice }}</Button>
   	</FlexboxLayout>
 	</ScrollView>
 </template>
@@ -10,14 +10,16 @@
 	export default {
 		name: 'FormIce',
 
-		props: {
-			ices: Array // Of strings
+		computed: {
+			ices() {
+				return this.$store.state.ices
+			}
 		},
 
 		methods: {
-			set(iceData) {
-				this.$emit('input', iceData)
-			}
+			updateIceData(data) {
+				this.$store.commit('update', { prop: 'iceData', data })
+			},
 		}
 	}
 </script>

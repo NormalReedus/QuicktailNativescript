@@ -2,7 +2,7 @@ import Vue from "nativescript-vue";
 import Vuex from 'vuex'
 const appSettings = require('tns-core-modules/application-settings')
 
-import Cocktail from '@/components/classes'
+import { Cocktail } from '@/components/classes'
 
 Vue.use(Vuex)
 
@@ -18,7 +18,7 @@ export default new Vuex.Store({
 		glassData: null,
 		iceData: null,
 		methodData: null,
-		ingredientsData: null,
+		ingredientsData: ["5 cl Vodka"],//null,
 		garnishData: null,
 		miscData: null,
 
@@ -33,8 +33,16 @@ export default new Vuex.Store({
 	},
 
 	mutations: {
-		update(state, payload) {
-			state[payload.prop] = payload.val
+		update(state, { prop, data }) {
+			state[prop] = data
+		},
+
+		add(state, { array, data }) {
+			state[array].push(data)
+		},
+
+		remove(state, { array, data }) {
+			state[array].remove(data)
 		},
 
 		saveCocktail(state) {
@@ -64,3 +72,14 @@ export default new Vuex.Store({
 		}
 	}
 })
+
+// Returns true if element was removed, false if not:
+Array.prototype.remove = function(value) {
+	const i = this.indexOf(value)
+	
+	if (i === -1) return false
+
+	this.splice(i, 1)
+
+	return true
+}

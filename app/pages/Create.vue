@@ -141,6 +141,7 @@ export default {
 
 		saveCocktail() {
 			this.$store.commit('saveCocktail')
+			this.$store.commit('discardCocktail') // Clears earlier data
 		},
 
 		async discardCocktail() {

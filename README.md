@@ -15,9 +15,9 @@
 	- Der skal være sliderstil (op/ned) på talmængden
 - **BRUG NATIVESCRIPT PLAYGROUND CODE SAMPLES OG STJÆL, STJÆL**
 
-## Todos:
-- Mulighed for at tilføje flere metoder på samme cocktail (e.g. shake + build)
-- Mulighed for billeder / tegninger + tilføjelse af glas, is, metoder etc
+## Fix:
 - Lav create siden om til at bruge v-for
 - Se forskellen på listview og stack
 - Lav et display af valgt unit i ingredients og så hav en event, der åbner list picker i full screen, når den tappes
+- Ny løsning til at vælge units som er mere native
+	- Lige nu kan man ikke tappe på en anden unit, det gør bare, at den selecter den man har markeret
