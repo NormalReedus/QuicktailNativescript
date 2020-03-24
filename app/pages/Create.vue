@@ -15,37 +15,31 @@
         <TabStrip :class="{ filled: selectedTabDataRef }">
           <TabStripItem :class="{ filled: glassData }">
             <Label>Glass</Label>
-            <!-- <Image src="res://home"></Image> -->
           </TabStripItem>
 
           <TabStripItem :class="{ filled: iceData }">
             <Label>Ice</Label>
-            <!-- <Image src="res://settings"></Image> -->
           </TabStripItem>
 
           <TabStripItem :class="{ filled: methodData }">
             <Label>Method</Label>
-            <!-- <Image src="res://search"></Image> -->
           </TabStripItem>
 
           <TabStripItem :class="{ filled: ingredientsData.length !== 0 }">
             <Label>Ingredients</Label>
-            <!-- <Image src="res://search"></Image> -->
           </TabStripItem>
 
           <TabStripItem :class="{ filled: garnishData }">
             <Label>Garnish</Label>
-            <!-- <Image src="res://search"></Image> -->
           </TabStripItem>
 
           <TabStripItem :class="{ filled: miscData }">
             <Label>Misc.</Label>
-            <!-- <Image src="res://search"></Image> -->
           </TabStripItem>
         </TabStrip>
 
         <TabContentItem>
-          <FormGlass @input="update('glassData', $event)" />
+          <FormGlass @input="update('glassData', $event)"/>
         </TabContentItem>
 
         <TabContentItem>
@@ -61,13 +55,11 @@
         </TabContentItem>
 
         <TabContentItem>
-          <Label class="h2 text-center">Garnish</Label>
-          <!-- <FormGarnish @input="update('garnishData', $event)" /> -->
+          <FormGarnish @input="update('garnishData', $event)" />
         </TabContentItem>
 
         <TabContentItem>
-          <Label class="h2 text-center">Misc.</Label>
-          <!-- <FormMisc @input="update('miscData', $event)" /> -->
+          <FormMisc @input="update('miscData', $event)" />
         </TabContentItem>
       </Tabs>
 
@@ -152,6 +144,10 @@ export default {
 					return this.ingredientsData.length !== 0
 					break
 
+				case 4:
+					return this.garnishData
+					break
+
 				default:
 					return false
 				// TBC
@@ -168,6 +164,8 @@ export default {
 		saveCocktail() {
 			this.$store.commit('saveCocktail')
 			this.$store.commit('discardCocktail') // Clears earlier data
+
+			this.$navigateBack()
 		},
 
 		async discardCocktail() {

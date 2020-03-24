@@ -12,7 +12,7 @@
 					
 					<TextField hint="Amount" keyboardType="number" v-model="amt"></TextField>
 					<Button @tap="toggleUnitPicker" class="-rounded-lg">{{ selectedUnit }}</Button>
-        	<TextField hint="Ingredient" class="nt-input" flexGrow="1" v-model="ingredient" @returnPress="setIngredient"></TextField>
+        	<TextField hint="Ingredient" class="nt-input" flexGrow="1" v-model="ingredient" @returnPress="addIngredient"></TextField>
     			<Button @tap="addIngredient" class="-rounded-lg">+</Button>
 
 				</FlexboxLayout>

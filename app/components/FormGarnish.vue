@@ -1,13 +1,21 @@
 <template>
-
+	<TextView editable="true" v-model="garnishData" />
 </template>
 
 <script>
 	export default {
 		name: 'FormGarnish',
 
-		props: {
-			garnishes: Array // Of strings
+		computed: {
+			garnishData: {
+				get() {
+					return this.$store.state.garnishData
+				},
+
+				set(data) {
+					this.$store.commit('update', { prop: 'garnishData', data })
+				}
+			}
 		}
 	}
 </script>

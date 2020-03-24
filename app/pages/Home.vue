@@ -1,12 +1,6 @@
 <template>
     <Page actionBarHidden="true" >
 
-		<!-- <StackLayout> -->
-				<!-- <StackLayout class="themeSwitch">
-				<Label :text="theme"/>
-					<Switch :checked="darkTheme" @checkedChange="test($event)/*$emit('themeChange', $event)*/" horizontalAlignment="center"/>
-				</StackLayout> -->
-
         <FlexboxLayout flexDirection="column" class="home">
 
             <Label class="h1 greeting" textWrap="true">What would you like to do?</Label>
@@ -33,7 +27,6 @@
 						<Button @tap="clear" >Clear</Button>
 
         </FlexboxLayout>
-		<!-- </StackLayout> -->
 
     </Page>
 </template>
@@ -58,11 +51,11 @@
 
         methods: {
             navToCreate() {
-                this.$navigateTo(Create);
+              this.$navigateTo(Create);
             },
 
             navToCocktails() {
-                this.$navigateTo(Cocktails);
+              this.$navigateTo(Cocktails);
 						},
 						
 						key() {

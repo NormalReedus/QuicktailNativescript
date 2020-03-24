@@ -14,6 +14,12 @@
 	- Man skal kunne vælge måleenhed (og tilføje ligesom alt andet)
 	- Der skal være sliderstil (op/ned) på talmængden
 - **BRUG NATIVESCRIPT PLAYGROUND CODE SAMPLES OG STJÆL, STJÆL**
+- Ændr startside til at være cocktailsiden og brug et lille + i bunden til højre (SE SAMPLES) til at adde
+	- Forside skal fjernes
+- Inde på en cocktail skal der laves et parallax scroll (SE SAMPLES) til at vise billede
+- Lav en gesture til hurtigt create etc (SE SAMPLES)
+- Lav float up text labels på ingredients input (SE SAMPLES)
+- Lav dialog om til custom
 
 ## Fix:
 - Lav create siden om til at bruge v-for

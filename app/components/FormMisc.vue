@@ -1,5 +1,5 @@
 <template>
-	
+		<Label text="yes" />
 </template>
 
 <script>
