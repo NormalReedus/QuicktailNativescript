@@ -28,9 +28,9 @@
 						<!-- TEST -->
 						<TextField v-model="keyToFind" hint="Find Key..." width="200"/>
 						<Button @tap="key" class="-primary">Key</Button>
-						<Button @tap="keys" class="-outline">All Keys</Button>
-						<Button @tap="test" class="-outline">Test</Button>
-						<Button @tap="clear" class="-danger">Clear</Button>
+						<Button @tap="keys" >All Keys</Button>
+						<Button @tap="test" >Test</Button>
+						<Button @tap="clear" >Clear</Button>
 
         </FlexboxLayout>
 		<!-- </StackLayout> -->
@@ -55,16 +55,6 @@
 						keyToFind: ''
 					}
 				},
-
-				// props: {
-				// 	darkTheme: Boolean
-				// },
-
-				// computed: {
-				// 	theme() {
-				// 		return this.darkTheme ? 'Dark' : 'Light'
-				// 	}
-				// },
 
         methods: {
             navToCreate() {

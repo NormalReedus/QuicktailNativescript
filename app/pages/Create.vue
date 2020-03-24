@@ -12,7 +12,7 @@
 
     <GridLayout rows="*, auto" columns="*">
       <Tabs v-model="selectedTabIndex" row="0">
-        <TabStrip>
+        <TabStrip :class="{ filled: selectedTabDataRef }">
           <TabStripItem :class="{ filled: glassData }">
             <Label>Glass</Label>
             <!-- <Image src="res://home"></Image> -->
@@ -28,7 +28,7 @@
             <!-- <Image src="res://search"></Image> -->
           </TabStripItem>
 
-          <TabStripItem :class="{ filled: ingredientsData }">
+          <TabStripItem :class="{ filled: ingredientsData.length !== 0 }">
             <Label>Ingredients</Label>
             <!-- <Image src="res://search"></Image> -->
           </TabStripItem>
@@ -49,11 +49,11 @@
         </TabContentItem>
 
         <TabContentItem>
-          <FormIce :ices="ices" @input="update('iceData', $event)" />
+          <FormIce @input="update('iceData', $event)" />
         </TabContentItem>
 
         <TabContentItem>
-          <FormMethod :methods="methods" @input="update('methodData', $event)" />
+          <FormMethod @input="update('methodData', $event)" />
         </TabContentItem>
 
         <TabContentItem>
@@ -62,7 +62,7 @@
 
         <TabContentItem>
           <Label class="h2 text-center">Garnish</Label>
-          <!-- <FormGarnish :garnishes="garnishes" @input="update('garnishData', $event)" /> -->
+          <!-- <FormGarnish @input="update('garnishData', $event)" /> -->
         </TabContentItem>
 
         <TabContentItem>
@@ -73,7 +73,7 @@
 
       <StackLayout row="1">
         <Button text="Save" class="-primary" @tap="saveCocktail" />
-        <Button text="Discard" class="-outline" @tap="discardCocktail" />
+        <Button text="Discard" class="" @tap="discardCocktail" />
       </StackLayout>
     </GridLayout>
   </Page>
@@ -87,7 +87,7 @@ import FormIngredients from '@/components/FormIngredients'
 import FormGarnish from '@/components/FormGarnish'
 import FormMisc from '@/components/FormMisc'
 
-const dialogs = require("tns-core-modules/ui/dialogs");
+const dialogs = require('tns-core-modules/ui/dialogs')
 
 export default {
 	name: 'Create',
@@ -130,6 +130,32 @@ export default {
 
 		miscData() {
 			return this.$store.state.miscData
+		},
+
+		selectedTabDataRef() {
+			// Maps tab index to the corresponding data in vuex
+			// and checks if the tab is "filled" like with the individual tab labels:
+			switch(this.selectedTabIndex) {
+				case 0:
+					return this.glassData
+					break
+				
+				case 1:
+					return this.iceData
+					break
+				
+				case 2:
+					return this.methodData
+					break
+				
+				case 3:
+					return this.ingredientsData.length !== 0
+					break
+
+				default:
+					return false
+				// TBC
+			}
 		}
 	},
 
@@ -146,16 +172,16 @@ export default {
 
 		async discardCocktail() {
 			const discard = await dialogs.confirm({
-				title: "Discard Coctail?",
-				okButtonText: "Discard",
-				cancelButtonText: "Cancel"
+				title: 'Discard Coctail?',
+				okButtonText: 'Discard',
+				cancelButtonText: 'Cancel',
 			})
 
 			if (discard) {
 				this.$store.commit('discardCocktail')
 
 				this.$navigateBack()
-			} 
+			}
 		},
 
 		nextTab() {
@@ -171,5 +197,6 @@ export default {
 <style scoped lang="scss">
 .filled {
 	color: lightgreen;
+	highlight-color: lightgreen;
 }
 </style>

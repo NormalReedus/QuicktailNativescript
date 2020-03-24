@@ -65,21 +65,11 @@
 
 				this.ingredient = ''
 				this.amt = ''
-
-				console.log(this.ingredientsData)
 			},
 
 			removeIngredient(data) {
 				this.$store.commit('remove', { array: 'ingredientsData', data })
-
-				console.log(this.ingredientsData)
 			},
-
-			test(e) {
-				console.log(e)
-			},
-
-			// Ved slettelse af ingredient skal vi også kalde this.set() igen
 
 			toggleUnitPicker() {
 				this.unitPickerShown = !this.unitPickerShown
