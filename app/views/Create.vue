@@ -29,7 +29,7 @@
             <Label>Garnish</Label>
           </TabStripItem>
 
-          <TabStripItem :class="{ filled: miscData.description || miscData.photoUrl }">
+          <TabStripItem :class="{ filled: miscData.description || miscData.imgSrc }">
             <Label>Misc.</Label>
           </TabStripItem>
         </TabStrip> 
@@ -145,7 +145,7 @@ export default {
 					break
 
 				case 5:
-					return this.miscData.description || this.miscData.photoUrl
+					return this.miscData.description || this.miscData.imgSrc
 					break
 
 				default:

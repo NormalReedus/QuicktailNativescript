@@ -25,7 +25,7 @@ export default new Vuex.Store({
 		garnishData: '',
 		miscData: {
 			description: '',
-			photoUrl: ''
+			imgSrc: null
 		},
 
 		// List to show:
@@ -85,9 +85,12 @@ export default new Vuex.Store({
 			state.glassData = null
 			state.iceData = null
 			state.methodData = null
-			state.ingredientsData = null
+			state.ingredientsData = []
 			state.garnishData = null
-			state.miscData = null
+			state.miscData = {
+				description: '',
+				imgSrc: null
+			}
 		}
 	}
 })

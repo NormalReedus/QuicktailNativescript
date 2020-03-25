@@ -20,12 +20,11 @@
 - Lav en gesture til hurtigt create etc (SE SAMPLES)
 - Lav float up text labels på ingredients input (SE SAMPLES)
 - Lav dialog om til custom
+- filter: hue-rotate(360) transition på et eller andet
+- Skal kunne slette filer fra documents() med fileSystemModule når man sletter en cocktail, men ikke når man sletter en, hvor billedet er valgt fra en picker
 
 ## Fix:
 - Lav create siden om til at bruge v-for
 - Se forskellen på listview og stack
-- Lav et display af valgt unit i ingredients og så hav en event, der åbner list picker i full screen, når den tappes
 - Ny løsning til at vælge units som er mere native
 	- Lige nu kan man ikke tappe på en anden unit, det gør bare, at den selecter den man har markeret
-- Discard gør, at man ikke kan åbne create igen (i hvert fald i emulator)
-- getNested eller setNested skal ikke være på Object.prototype
