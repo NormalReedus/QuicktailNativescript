@@ -1,95 +1,94 @@
 <template>
-		<ListPicker v-if="unitPickerShown" :items="units" :selectedIndex="unitIndex" @selectedIndexChange="setUnitIndex($event)" @tap="toggleUnitPicker"/>
-		
-		<ScrollView v-else>
-			<StackLayout orientation="vertical" class="m-x-15">
-				<FlexboxLayout v-for="ingredient of ingredientsData" :key="ingredient" alignItems="center" justifyContent="flex-end" >
-					<Label flexGrow="1">{{ ingredient }}</Label>
-					<Button class="-rounded-lg" @tap="removeIngredient(ingredient)">x</Button>
-				</FlexboxLayout>
+  <ListPicker v-if="unitPickerShown" :items="units" :selectedIndex="unitIndex" @selectedIndexChange="setUnitIndex($event)" @tap="toggleUnitPicker"/>
 
-				<FlexboxLayout alignItems="center">
-					
-					<TextField hint="Amount" keyboardType="number" v-model="amt"></TextField>
-					<Button @tap="toggleUnitPicker" class="-rounded-lg">{{ selectedUnit }}</Button>
-        	<TextField hint="Ingredient" class="nt-input" flexGrow="1" v-model="ingredient" @returnPress="addIngredient"></TextField>
-    			<Button @tap="addIngredient" class="-rounded-lg">+</Button>
+  <ScrollView v-else>
+    <StackLayout orientation="vertical" class="m-x-15">
+      <FlexboxLayout v-for="ingredient of ingredientsData" :key="ingredient" alignItems="center" justifyContent="flex-end">
+        <Label flexGrow="1">{{ ingredient }}</Label>
+        <Button class="-rounded-lg" @tap="removeIngredient(ingredient)">x</Button>
+      </FlexboxLayout>
 
-				</FlexboxLayout>
-			</StackLayout>
-		</ScrollView>
-		
-		
-
+      <FlexboxLayout alignItems="center">
+        <TextField hint="Amount" keyboardType="number" v-model="amt"></TextField>
+        <Button @tap="toggleUnitPicker" class="-rounded-lg">{{ selectedUnit }}</Button>
+        <TextField
+          hint="Ingredient"
+          class="nt-input"
+          flexGrow="1"
+          v-model="ingredient"
+          @returnPress="addIngredient"
+        ></TextField>
+        <Button @tap="addIngredient" class="-rounded-lg">+</Button>
+      </FlexboxLayout>
+    </StackLayout>
+  </ScrollView>
 </template>
 
 <script>
-	const appSettings = require('tns-core-modules/application-settings')
+const appSettings = require('tns-core-modules/application-settings')
 
-	export default {
-		name: 'FormIngredients',
+export default {
+	name: 'FormIngredients',
 
-		data() {
-			return {
-				unitPickerShown: false,
+	data() {
+		return {
+			unitPickerShown: false,
 
-				units: [],
-				unitIndex: null,
+			units: [],
+			unitIndex: null,
 
-				amt: '',
-				ingredient: ''
-			}
-		},
-
-		computed: {
-			ingredientsData() {
-				return this.$store.state.ingredientsData
-			},
-
-			selectedUnit() {
-				return this.units[this.unitIndex]
-			}
-		},
-
-		methods: {
-			setUnitIndex({ value }) {
-				this.unitIndex = value
-			},
-
-			addIngredient() {
-				if (!this.amt || !this.ingredient) return
-
-				const data = this.amt + " " + this.selectedUnit + " " + this.ingredient
-
-				this.$store.commit('add', { array: 'ingredientsData', data })
-
-				this.ingredient = ''
-				this.amt = ''
-			},
-
-			removeIngredient(data) {
-				this.$store.commit('remove', { array: 'ingredientsData', data })
-			},
-
-			toggleUnitPicker() {
-				this.unitPickerShown = !this.unitPickerShown
-			},
-		},
-
-		created() {
-			const units = JSON.parse(appSettings.getString('units'))
-			const defaultUnitIndex = appSettings.getNumber('defaultUnitIndex')
-
-			this.units = units
-			this.unitIndex = defaultUnitIndex
+			amt: '',
+			ingredient: '',
 		}
-	}
+	},
+
+	computed: {
+		ingredientsData() {
+			return this.$store.state.ingredientsData
+		},
+
+		selectedUnit() {
+			return this.units[this.unitIndex]
+		},
+	},
+
+	methods: {
+		setUnitIndex({ value }) {
+			this.unitIndex = value
+		},
+
+		addIngredient() {
+			if (!this.amt || !this.ingredient) return
+
+			const data = this.amt + ' ' + this.selectedUnit + ' ' + this.ingredient
+
+			this.$store.commit('add', { array: 'ingredientsData', data })
+
+			this.ingredient = ''
+			this.amt = ''
+		},
+
+		removeIngredient(data) {
+			this.$store.commit('remove', { array: 'ingredientsData', data })
+		},
+
+		toggleUnitPicker() {
+			this.unitPickerShown = !this.unitPickerShown
+		},
+	},
+
+	created() {
+		const units = JSON.parse(appSettings.getString('units'))
+		const defaultUnitIndex = appSettings.getNumber('defaultUnitIndex')
+
+		this.units = units
+		this.unitIndex = defaultUnitIndex
+	},
+}
 </script>
 
 <style lang="scss" scoped>
-
-
-Button {
+button {
 	width: 10;
 }
 </style>

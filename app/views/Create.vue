@@ -1,11 +1,7 @@
 <template>
   <Page>
     <ActionBar title="Create Cocktail">
-      <StackLayout
-        orientation="horizontal"
-        ios:horizontalAlignment="center"
-        android:horizontalAlignment="center"
-      >
+      <StackLayout orientation="horizontal" ios:horizontalAlignment="center" android:horizontalAlignment="center">
         <Label text="Create Cocktail" class="h2" />
       </StackLayout>
     </ActionBar>
@@ -33,39 +29,39 @@
             <Label>Garnish</Label>
           </TabStripItem>
 
-          <TabStripItem :class="{ filled: miscData }">
+          <TabStripItem :class="{ filled: miscData.description || miscData.photoUrl }">
             <Label>Misc.</Label>
           </TabStripItem>
-        </TabStrip>
+        </TabStrip> 
 
         <TabContentItem>
-          <FormGlass @input="update('glassData', $event)"/>
+          <FormGlass />
         </TabContentItem>
 
         <TabContentItem>
-          <FormIce @input="update('iceData', $event)" />
+          <FormIce />
         </TabContentItem>
 
         <TabContentItem>
-          <FormMethod @input="update('methodData', $event)" />
+          <FormMethod />
         </TabContentItem>
 
         <TabContentItem>
-          <FormIngredients @input="update('ingredientsData', $event)" />
+          <FormIngredients />
         </TabContentItem>
 
         <TabContentItem>
-          <FormGarnish @input="update('garnishData', $event)" />
+          <FormGarnish />
         </TabContentItem>
 
         <TabContentItem>
-          <FormMisc @input="update('miscData', $event)" />
+          <FormMisc />
         </TabContentItem>
       </Tabs>
 
       <StackLayout row="1">
         <Button text="Save" class="-primary" @tap="saveCocktail" />
-        <Button text="Discard" class="" @tap="discardCocktail" />
+        <Button text="Discard" class @tap="discardCocktail" />
       </StackLayout>
     </GridLayout>
   </Page>
@@ -127,19 +123,19 @@ export default {
 		selectedTabDataRef() {
 			// Maps tab index to the corresponding data in vuex
 			// and checks if the tab is "filled" like with the individual tab labels:
-			switch(this.selectedTabIndex) {
+			switch (this.selectedTabIndex) {
 				case 0:
 					return this.glassData
 					break
-				
+
 				case 1:
 					return this.iceData
 					break
-				
+
 				case 2:
 					return this.methodData
 					break
-				
+
 				case 3:
 					return this.ingredientsData.length !== 0
 					break
@@ -148,11 +144,14 @@ export default {
 					return this.garnishData
 					break
 
+				case 5:
+					return this.miscData.description || this.miscData.photoUrl
+					break
+
 				default:
 					return false
-				// TBC
 			}
-		}
+		},
 	},
 
 	methods: {

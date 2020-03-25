@@ -18,14 +18,14 @@ export default new Vuex.Store({
 		garnishes: JSON.parse(appSettings.getString('garnishes')),
 
 		// Selected components when creating cocktails:
-		glassData: null,
-		iceData: null,
-		methodData: null,
-		ingredientsData: ["5 cl Vodka"],//null,
-		garnishData: null,
+		glassData: '',
+		iceData: '',
+		methodData: '',
+		ingredientsData: [], // Has to be empty array initially
+		garnishData: '',
 		miscData: {
-			desc: 'test',
-			photoUrl: null
+			description: '',
+			photoUrl: ''
 		},
 
 		// List to show:
@@ -51,8 +51,17 @@ export default new Vuex.Store({
 			state[array].remove(data)
 		},
 
-		setNested(state, pathArr, val) {
-			state.setNested(pathArr, val)
+		setNested(state, { path, val }) {
+			if (path.length === 0) {
+				throw new Error("Object or properties does not exist")
+			} else if (path.length === 1) {
+				throw new Error("setNested should not be used with a path of length 1")
+			}
+			
+			const ref = path.slice(0, -1)
+			const prop = path[path.length - 1]
+			
+			ref.reduce((acc, cur) => acc[cur], state)[prop] = val
 		},
 
 		saveCocktail(state) {
@@ -92,27 +101,6 @@ Array.prototype.remove = function(value) {
 	this.splice(i, 1)
 
 	return true
-}
-
-Object.prototype.getNested = function(obj, pathArr) {
-	if (pathArr.length === 0) {
-		throw "Object or properties does not exist"
-	}
-
-	return pathArr.reduce((acc, cur) => acc[cur], obj)
-}
-
-Object.prototype.setNested = function(obj, pathArr, val) {
-	if (pathArr.length === 0) {
-		throw "Object or properties does not exist"
-	} else if (pathArr.length === 1) {
-		throw "setNested should not be used with a path of length 1"
-	}
-
-	const ref = pathArr.slice(0, -1)
-	const prop = pathArr[pathArr.length - 1]
-
-	ref.reduce((acc, cur) => acc[cur], obj)[prop] = val
 }
 
 //* Loads default values etc into appSettings if first boot:

@@ -1,36 +1,36 @@
 <template>
-		<TextView editable="true" />
+  <GridLayout rows="auto auto" columns="*">
+		<Button @tap="takePhoto" row="0">PHOTO</Button>
+    <TextView editable="true" v-model="miscDataDescription" row="1" />
+  </GridLayout>
 </template>
 
 <script>
-	export default {
-		name: 'FormMisc',
+export default {
+	name: 'FormMisc',
 
+	computed: {
+		miscDataDescription: {
+			get() {
+				return this.$store.state.miscData.description
+			},
 
-		computed: {
-			miscDataDesc() {
-				return this.$store.state.getNested(['miscData', 'desc'])
-			}
-		},
-
-		methods: {
-			getNested(pathArr) {
-				if (pathArr.length === 0) {
-					throw "Object or properties does not exist"
-				}
-
-				return pathArr.reduce((acc, cur) => acc[cur], this.$store.state)
+			set(val) {
+				this.$store.commit('setNested', {
+					path: ['miscData', 'description'],
+					val,
+				})
 			},
 		},
+	},
 
-		created() {
-			console.log(this.miscDataDesc)
-			this.$store.commit('setNested', ['miscData', 'desc'], 'randomtest')
-			console.log(this.miscDataDesc)
+	methods: {
+		takePhoto() {
+
 		}
-	}
+	},
+}
 </script>
 
 <style lang="scss" scoped>
-
 </style>
