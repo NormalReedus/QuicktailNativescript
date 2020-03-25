@@ -28,3 +28,4 @@
 - Ny løsning til at vælge units som er mere native
 	- Lige nu kan man ikke tappe på en anden unit, det gør bare, at den selecter den man har markeret
 - Discard gør, at man ikke kan åbne create igen (i hvert fald i emulator)
+- getNested eller setNested skal ikke være på Object.prototype

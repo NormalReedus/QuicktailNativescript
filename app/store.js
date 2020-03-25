@@ -51,6 +51,10 @@ export default new Vuex.Store({
 			state[array].remove(data)
 		},
 
+		setNested(state, pathArr, val) {
+			state.setNested(pathArr, val)
+		},
+
 		saveCocktail(state) {
 			state.cocktails = JSON.parse(appSettings.getString('cocktails'))
 
@@ -88,6 +92,27 @@ Array.prototype.remove = function(value) {
 	this.splice(i, 1)
 
 	return true
+}
+
+Object.prototype.getNested = function(obj, pathArr) {
+	if (pathArr.length === 0) {
+		throw "Object or properties does not exist"
+	}
+
+	return pathArr.reduce((acc, cur) => acc[cur], obj)
+}
+
+Object.prototype.setNested = function(obj, pathArr, val) {
+	if (pathArr.length === 0) {
+		throw "Object or properties does not exist"
+	} else if (pathArr.length === 1) {
+		throw "setNested should not be used with a path of length 1"
+	}
+
+	const ref = pathArr.slice(0, -1)
+	const prop = pathArr[pathArr.length - 1]
+
+	ref.reduce((acc, cur) => acc[cur], obj)[prop] = val
 }
 
 //* Loads default values etc into appSettings if first boot:

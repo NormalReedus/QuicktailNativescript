@@ -2,7 +2,7 @@ import Vue from "nativescript-vue";
 import Vuex from 'vuex'
 import store from './store'
 
-import Home from "./pages/Home";
+import Home from "./views/Home";
 
 Vue.use(Vuex)
 
