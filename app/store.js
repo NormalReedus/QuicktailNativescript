@@ -23,7 +23,10 @@ export default new Vuex.Store({
 		methodData: null,
 		ingredientsData: ["5 cl Vodka"],//null,
 		garnishData: null,
-		miscData: null,
+		miscData: {
+			desc: 'test',
+			photoUrl: null
+		},
 
 		// List to show:
 		cocktails: JSON.parse(appSettings.getString('cocktails')),
