@@ -68,6 +68,12 @@ export default {
 			appSettings.setString('cocktails', '[]')
 		},
 	},
+
+	mounted() {
+		// console.log(this.$store.state.cocktails)
+		// console.log(this.$store.state.cocktails[0].imgSrc)
+		// console.log(appSettings.getString('cocktails') === JSON.stringify(this.$store.state.cocktails))
+	}
 }
 </script>
 

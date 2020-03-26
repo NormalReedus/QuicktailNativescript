@@ -1,11 +1,13 @@
 export class Cocktail {
 	constructor(glass, ice, method, ingredients, garnish, misc) {
+		// NAme
 	this.glass = glass
 	this.ice = ice
 	this.method = method
 	this.ingredients = ingredients
 	this.garnish = garnish
-	this.misc = misc
+	this.description = misc.description
+	this.imgSrc = misc.imgSrc
 
 	this.favorited = false
 	}

@@ -22,6 +22,7 @@
 - Lav dialog om til custom
 - filter: hue-rotate(360) transition på et eller andet
 - Skal kunne slette filer fra documents() med fileSystemModule når man sletter en cocktail, men ikke når man sletter en, hvor billedet er valgt fra en picker
+- Man skal kunne edit opskrifter
 
 ## Fix:
 - Lav create siden om til at bruge v-for

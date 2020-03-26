@@ -3,8 +3,6 @@ import Vuex from 'vuex'
 import defaults from '@/components/defaults.js'
 const appSettings = require('tns-core-modules/application-settings')
 
-setupDefaults() // Default glasses etc in appSettings
-
 import { Cocktail } from '@/components/classes'
 
 Vue.use(Vuex)
@@ -65,7 +63,7 @@ export default new Vuex.Store({
 		},
 
 		saveCocktail(state) {
-			state.cocktails = JSON.parse(appSettings.getString('cocktails'))
+			// state.cocktails = JSON.parse(appSettings.getString('cocktails'))
 
 			state.cocktails.push(
 				new Cocktail(
@@ -92,6 +90,10 @@ export default new Vuex.Store({
 				imgSrc: null
 			}
 		}
+	},
+
+	created() {
+		setupDefaults() // Default glasses etc in appSettings
 	}
 })
 

@@ -43,6 +43,8 @@ export default {
 			} else {
 				this.methodData = data
 			}
+
+			this.$emit('nextTab')
 		},
 	},
 }

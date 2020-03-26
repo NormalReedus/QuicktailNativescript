@@ -35,15 +35,15 @@
         </TabStrip> 
 
         <TabContentItem>
-          <FormGlass />
+          <FormGlass @nextTab="nextTab" />
         </TabContentItem>
 
         <TabContentItem>
-          <FormIce />
+          <FormIce @nextTab="nextTab" />
         </TabContentItem>
 
         <TabContentItem>
-          <FormMethod />
+          <FormMethod @nextTab="nextTab" />
         </TabContentItem>
 
         <TabContentItem>

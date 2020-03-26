@@ -43,6 +43,8 @@ export default {
 			} else {
 				this.glassData = data
 			}
+
+			this.$emit('nextTab')
 		},
 	},
 }

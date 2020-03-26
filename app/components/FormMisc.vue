@@ -2,7 +2,7 @@
   <ScrollView>
     <GridLayout rows="auto auto auto" columns="*">
       <Button @tap="takePhoto" row="0">PHOTO</Button>
-      <Image v-if="imgSrc" :src="imgSrc" row="1" loadMode="async" stretch="aspectFit" />
+      <Image v-if="imgSrc" :src="imgSrc" row="1" loadMode="async" stretch="aspectFit" class="img-rounded"/>
       <TextView editable="true" v-model="description" row="2" />
       <!-- <Button @tap="test" row="1">TEST</Button> -->
     </GridLayout>
@@ -71,6 +71,18 @@ export default {
 			// And is set to reference the image:
 			let imageSource = await source.fromAsset(imageAsset)
 
+			// imageSource = await this.cropImage(imageSource)
+			imageSource = await this.cropImage(imageSource)
+
+			const save = this.saveImage({ imageSource, filename: 'test.png' })
+
+			if (save.saved) {
+				// We load the file from the saved path into Vuex, so it can be shown in the misc-tab:
+				this.loadImage(save.path)
+			}
+		},
+
+		async cropImage(imageSource) {
 			// The cropper is called:
 			const imageCropper = new ImageCropper()
 			// For some reason the return val is 'args' - the cropper reads the image from the beforementioned source and asks user to crop to imageSize:
@@ -83,18 +95,21 @@ export default {
 			}
 			// The source is updated to point to the new cropped image:
 			imageSource = args.image
+			return imageSource
+		},
 
+		saveImage({ imageSource, filename }) {
 			// The app's read + write folder, filename, and the full path is defined:
 			const folder = fsm.knownFolders.documents().path
-			const filename = 'test.png'
 			const path = fsm.path.join(folder, filename)
+
 			// We save the img to the specified path:
 			const saved = imageSource.saveToFile(path, 'png')
-			if (saved) {
-				console.log('Image saved')
-				// We load the file from the saved path into Vuex, so it can be shown in the misc-tab:
-				this.imgSrc = ism.fromFile(path)
-			}
+			return { saved, path }
+		},
+
+		loadImage(path) {
+			this.imgSrc = ism.fromFile(path)
 		},
 
 		test() {

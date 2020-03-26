@@ -43,6 +43,8 @@ export default {
 			} else {
 				this.iceData = data
 			}
+
+			this.$emit('nextTab')
 		},
 	},
 }

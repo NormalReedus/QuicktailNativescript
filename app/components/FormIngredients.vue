@@ -8,12 +8,12 @@
         <Button class="-rounded-lg" @tap="removeIngredient(ingredient)">x</Button>
       </FlexboxLayout>
 
-      <FlexboxLayout alignItems="center">
-        <TextField hint="Amount" keyboardType="number" v-model="amt"></TextField>
-        <Button @tap="toggleUnitPicker" class="-rounded-lg">{{ selectedUnit }}</Button>
+      <FlexboxLayout alignItems="center" class="nt-input">
+        <TextField hint="Amount" keyboardType="number" v-model="amt" class="-border -rounded"></TextField>
+        <Button @tap="toggleUnitPicker" class="-rounded-lg" >{{ selectedUnit }}</Button>
         <TextField
           hint="Ingredient"
-          class="nt-input"
+          class="nt-input -border -rounded"
           flexGrow="1"
           v-model="ingredient"
           @returnPress="addIngredient"
