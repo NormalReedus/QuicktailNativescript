@@ -29,6 +29,7 @@
 import Create from './Create'
 import Cocktails from './Cocktails'
 const appSettings = require('tns-core-modules/application-settings')
+const fsm = require('tns-core-modules/file-system')
 
 export default {
 	name: 'Home',
@@ -61,7 +62,13 @@ export default {
 		},
 
 		test() {
-			console.log(JSON.parse(appSettings.getString('cocktails'))[0])
+			// console.log(JSON.parse(appSettings.getString('cocktails')))
+			fsm.knownFolders.documents().getEntities().then(arr => {
+				arr.forEach(e => {
+					console.log(e)
+					// if (e._extension) e.remove()
+				})
+			})
 		},
 
 		clear() {
@@ -69,11 +76,6 @@ export default {
 		},
 	},
 
-	mounted() {
-		// console.log(this.$store.state.cocktails)
-		// console.log(this.$store.state.cocktails[0].imgSrc)
-		// console.log(appSettings.getString('cocktails') === JSON.stringify(this.$store.state.cocktails))
-	}
 }
 </script>
 

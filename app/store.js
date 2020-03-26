@@ -1,12 +1,15 @@
 import Vue from "nativescript-vue";
 import Vuex from 'vuex'
 import defaults from '@/components/defaults.js'
+
 const appSettings = require('tns-core-modules/application-settings')
+setupDefaults() // Default glasses etc in appSettings
 
 import { Cocktail } from '@/components/classes'
 
 Vue.use(Vuex)
 
+const util = require('util')
 export default new Vuex.Store({
 	state: {
 		// Available components for creating cocktails:
@@ -23,7 +26,8 @@ export default new Vuex.Store({
 		garnishData: '',
 		miscData: {
 			description: '',
-			imgSrc: null
+			imgSrc: '',
+			name: ''
 		},
 
 		// List to show:
@@ -77,6 +81,8 @@ export default new Vuex.Store({
 			)
 
 			appSettings.setString('cocktails', JSON.stringify(state.cocktails))
+			
+			console.log(state.cocktails[0].imgSrc)
 		},
 
 		discardCocktail(state) {
@@ -87,14 +93,11 @@ export default new Vuex.Store({
 			state.garnishData = null
 			state.miscData = {
 				description: '',
-				imgSrc: null
+				imgSrc: '',
+				name: ''
 			}
 		}
 	},
-
-	created() {
-		setupDefaults() // Default glasses etc in appSettings
-	}
 })
 
 // Returns true if element was removed, false if not:

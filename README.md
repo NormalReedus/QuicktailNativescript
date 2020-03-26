@@ -29,3 +29,15 @@
 - Se forskellen på listview og stack
 - Ny løsning til at vælge units som er mere native
 	- Lige nu kan man ikke tappe på en anden unit, det gør bare, at den selecter den man har markeret
+- Ændr vuex -Data navne
+- Sørg for at alt bliver reverted, hvis man ikke tager / vælger et billede HELT - uden errors der crasher
+- Alle billeder skal have en default, hvis ikke filen findes
+- Efter billede er taget med kamera skal det gemmes i vuex, men ikke på device. Først ved saveCocktail skal det gemmes på device
+	- Kig på at gemme imageSource midlertidigt KUN til visning i misc-tabben (da dette ikke må gemmes som cocktail fordi JSON fucker det op), derefter hvis det gemmes, skal imageSource forkastes og bare path gemmes i vuex, da <Image> læser det på samme måde
+	- rename fsm til fs
+
+## Inspo:
+- Styling:
+	- NS samples
+	- Youtube creators
+	- Nativescript theme siden

@@ -1,5 +1,5 @@
 <template>
-  <TextView editable="true" v-model="garnishData" />
+  <TextView editable="true" v-model="garnishData" hint="Description" class="-border -rounded" />
 </template>
 
 <script>

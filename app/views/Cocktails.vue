@@ -25,6 +25,12 @@
 export default {
 	name: 'Cocktails',
 
+	data() {
+		return {
+			
+		}
+	},
+
 	computed: {
 		cocktails() {
 			return this.$store.state.cocktails

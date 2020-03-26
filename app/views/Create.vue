@@ -29,7 +29,7 @@
             <Label>Garnish</Label>
           </TabStripItem>
 
-          <TabStripItem :class="{ filled: miscData.description || miscData.imgSrc }">
+          <TabStripItem :class="{ filled: miscData.description || miscData.imgSrc || miscData.name }">
             <Label>Misc.</Label>
           </TabStripItem>
         </TabStrip> 

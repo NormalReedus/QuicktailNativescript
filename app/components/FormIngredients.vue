@@ -9,7 +9,7 @@
       </FlexboxLayout>
 
       <FlexboxLayout alignItems="center" class="nt-input">
-        <TextField hint="Amount" keyboardType="number" v-model="amt" class="-border -rounded"></TextField>
+        <TextField hint="Amount" keyboardType="number" v-model="amt" class="-border -rounded" />
         <Button @tap="toggleUnitPicker" class="-rounded-lg" >{{ selectedUnit }}</Button>
         <TextField
           hint="Ingredient"
@@ -17,7 +17,7 @@
           flexGrow="1"
           v-model="ingredient"
           @returnPress="addIngredient"
-        ></TextField>
+        />
         <Button @tap="addIngredient" class="-rounded-lg">+</Button>
       </FlexboxLayout>
     </StackLayout>
