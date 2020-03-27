@@ -10,20 +10,32 @@
       </StackLayout>
     </ActionBar>
 
-    <ScrollView>
+		<GridLayout>
+    <ScrollView row="0">
     	<StackLayout>
-        <!-- <FlexboxLayout flexDirection="column" v-for="cocktail of cocktails" :key="cocktail.imgSrc"> -->
-					<!-- <Label class="text-primary">Name</!--> --> -->
           <Image v-for="cocktail of cocktails" :key="cocktail.imgSrc" :src="cocktail.imgSrc"/>
-        <!-- </FlexboxLayout> -->
       </StackLayout>
     </ScrollView>
+
+		<AbsoluteLayout marginTop="87%" marginLeft="80%" row="0">
+			<ActionButton />
+		</AbsoluteLayout>
+		</GridLayout>
   </Page>
 </template>
 
 <script>
+import Create from './Create'
+import ActionButton from '@/components/ActionButton'
+
+
 export default {
 	name: 'Cocktails',
+
+	components: {
+		Create,
+		ActionButton
+	},
 
 	data() {
 		return {

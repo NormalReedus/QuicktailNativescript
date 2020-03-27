@@ -62,7 +62,7 @@ export default {
 		},
 
 		test() {
-			// console.log(JSON.parse(appSettings.getString('cocktails')))
+			console.log(JSON.parse(appSettings.getString('cocktails')))
 			fsm.knownFolders.documents().getEntities().then(arr => {
 				arr.forEach(e => {
 					console.log(e)

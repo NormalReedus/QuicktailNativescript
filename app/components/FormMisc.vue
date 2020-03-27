@@ -33,10 +33,8 @@ import * as camera from 'nativescript-camera'
 import * as imagepicker from 'nativescript-imagepicker'
 import { Image } from 'tns-core-modules/ui/image'
 
-const ism = require('tns-core-modules/image-source')
-const source = new ism.ImageSource()
+const is = require('tns-core-modules/image-source')
 
-const fsm = require('tns-core-modules/file-system')
 const { ImageCropper } = require('nativescript-imagecropper')
 const imageSize = 512
 
@@ -127,6 +125,7 @@ export default {
 		},
 
 		async handleImage(imageAsset) {
+			const source = new is.ImageSource()
 			// Source object is set to reference the image:
 			let imageSource = await source.fromAsset(imageAsset)
 			imageSource = await this.cropImage(imageSource)
@@ -134,13 +133,6 @@ export default {
 			this.imgSrc = imageSource
 
 			//TODO: Flyt save til create-vue - saveCocktail, og sørg for at den nuværende imgSrc (som har en imageSource som val) bliver ændret til at have en val svarende til den path, vi får når billedet er gemt
-
-			// const save = this.saveImage(imageSource)
-
-			// if (save.saved) {
-			// 	// We load the file from the saved path into Vuex, so it can be shown in the misc-tab:
-			// 	this.loadImage(save.path)
-			// }
 		},
 
 		async cropImage(imageSource) {
@@ -159,27 +151,7 @@ export default {
 			return imageSource
 		},
 
-		saveImage(imageSource) {
-			const filename = this.uniqueFilename()
-			console.log(filename)
-			// The app's read + write folder, filename, and the full path is defined:
-			const folder = fsm.knownFolders.documents().path
-			const path = fsm.path.join(folder, filename)
-
-			// We save the img to the specified path:
-			const saved = imageSource.saveToFile(path, 'png')
-			return { saved, path }
-		},
-
-		loadImage(path) {
-			// this.imgSrc = ism.fromFile(path)
-			this.imgSrc = path
-		},
-
-		uniqueFilename() {
-			// 6 digits should be enough:
-			return this.name + Date.now() + '.png'
-		},
+		
 	},
 }
 </script>

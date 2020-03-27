@@ -137,7 +137,7 @@ function setupDefaults() {
 		appSettings.setString('garnishes', defaults.garnishes)
 	// }	
 
-	// if (!appSettings.hasKey('cocktails')) {
+	if (!appSettings.hasKey('cocktails')) {
 		appSettings.setString('cocktails', '[]')
-	// }
+	}
 }

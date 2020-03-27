@@ -76,6 +76,7 @@ import FormGarnish from '@/components/FormGarnish'
 import FormMisc from '@/components/FormMisc'
 
 const dialogs = require('tns-core-modules/ui/dialogs')
+const fs = require('tns-core-modules/file-system')
 
 export default {
 	name: 'Create',
@@ -161,6 +162,18 @@ export default {
 		},
 
 		saveCocktail() {
+			const save = this.saveImage(this.miscData.imgSrc)
+
+			if (!save.saved) return console.log('There was an error saving the selected image')
+
+			this.$store.commit('setNested', {
+				path: [
+					'miscData',
+					'imgSrc'
+				],
+				val: save.path
+			})
+
 			this.$store.commit('saveCocktail')
 			this.$store.commit('discardCocktail') // Clears earlier data
 
@@ -186,6 +199,23 @@ export default {
 				// less than number of tabs
 				this.selectedTabIndex++
 			}
+		},
+
+		// Takes an imageSource and returns the path to where the img was saved (and whether it was saved):
+		saveImage(imageSource) {
+			const filename = this.uniqueFilename()
+			// The app's read + write folder, filename, and the full path is defined:
+			const folder = fs.knownFolders.documents().path
+			const path = fs.path.join(folder, filename)
+
+			// We save the img to the specified path:
+			const saved = imageSource.saveToFile(path, 'png')
+			return { saved, path }
+		},
+
+		uniqueFilename() {
+			// 6 digits should be enough:
+			return this.miscData.name + Date.now() + '.png'
 		},
 	},
 }
