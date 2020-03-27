@@ -1,27 +1,6 @@
 <template>
-  <Page actionBarHidden="true">
-    <FlexboxLayout flexDirection="column" class="home">
-      <Label class="h1 greeting" textWrap="true">What would you like to do?</Label>
-
-      <FlexboxLayout>
-        <FlexboxLayout class="button-container">
-          <Image src="~/create_btn.png" @tap="$navigateTo(Create)" class="m-x-25 img" />
-          <Label class="h2">Create</Label>
-        </FlexboxLayout>
-
-        <FlexboxLayout class="button-container">
-          <Image src="~/cocktails_btn.png" @tap="$navigateTo(Cocktails)" class="m-x-25 img" />
-          <Label class="h2">Cocktails</Label>
-        </FlexboxLayout>
-      </FlexboxLayout>
-
-      <!-- TEST -->
-      <TextField v-model="keyToFind" hint="Find Key..." width="200" />
-      <Button @tap="key" class="-primary">Key</Button>
-      <Button @tap="keys">All Keys</Button>
-      <Button @tap="test">Test</Button>
-      <Button @tap="clear">Clear</Button>
-    </FlexboxLayout>
+  <Page>
+    
   </Page>
 </template>
 

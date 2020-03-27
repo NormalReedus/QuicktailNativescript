@@ -34,6 +34,9 @@
 	- unzip filen i temp
 	- flet json ind i appSettings
 	- flet billeder ind i documents/billedmappen
+- Tilbage-knapper?
+- Søgefunktion i cocktails (SAMPLES)
+	- Modal med søge-settings (så man kan søge i ingredienser etc også)
 
 ## Fix:
 - Lav create siden om til at bruge v-for

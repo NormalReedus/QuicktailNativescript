@@ -36,7 +36,7 @@ import { Image } from 'tns-core-modules/ui/image'
 const is = require('tns-core-modules/image-source')
 
 const { ImageCropper } = require('nativescript-imagecropper')
-const imageSize = 512
+const imageSize = 1024
 
 export default {
 	name: 'FormMisc',

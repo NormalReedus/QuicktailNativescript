@@ -10,24 +10,35 @@
       </StackLayout>
     </ActionBar>
 
-    <GridLayout>
-      <ScrollView row="0">
-        <FlexboxLayout flexWrap="wrap" padding="20" justifyContent="space-around" @tap="$navigateTo(Cocktail)">
-					<StackLayout width="40%" v-for="cocktail of cocktails" :key="cocktail.imgSrc" class="-circle">
-          	<Image :src="cocktail.imgSrc"  />
-						<Label>{{ cocktail.name }}</Label>
-					</StackLayout>
-        </FlexboxLayout>
-        <!-- <StackLayout>
-          <Image v-for="cocktail of cocktails" :key="cocktail.imgSrc" :src="cocktail.imgSrc" />
-        </StackLayout>-->
-      </ScrollView>
+    <StackLayout>
+      <TextField v-model="searchFilter" hint="Filter..." /> 
+			<!-- Add looking glass icon and an x to clear -->
 
-      <AbsoluteLayout marginTop="87%" marginLeft="80%" row="0">
-        <!-- <ActionButton /> -->
-        <Image src="~/action_button.png" @tap="$navigateTo(Create)" height="56" width="56" />
-      </AbsoluteLayout>
-    </GridLayout>
+      <GridLayout>
+        <ScrollView row="0">
+          <FlexboxLayout flexWrap="wrap" padding="20" justifyContent="space-around">
+            <StackLayout
+              width="40%"
+              v-for="cocktail of filteredCocktails"
+              :key="cocktail.imgSrc"
+              class="-circle"
+              @tap="goToCocktailPage(cocktail)"
+            >
+              <Image :src="cocktail.imgSrc" />
+              <Label>{{ cocktail.name }}</Label>
+            </StackLayout>
+          </FlexboxLayout>
+          <!-- <StackLayout>
+          <Image v-for="cocktail of cocktails" :key="cocktail.imgSrc" :src="cocktail.imgSrc" />
+          </StackLayout>-->
+        </ScrollView>
+
+        <AbsoluteLayout marginTop="87%" marginLeft="80%" row="0">
+          <!-- <ActionButton /> -->
+          <Image src="~/action_button.png" @tap="$navigateTo(Create)" height="56" width="56" />
+        </AbsoluteLayout>
+      </GridLayout>
+    </StackLayout>
   </Page>
 </template>
 
@@ -39,10 +50,15 @@ import Cocktail from './Cocktail'
 export default {
 	name: 'Cocktails',
 
+	components: {
+		Cocktail,
+	},
+
 	data() {
 		return {
 			Create,
-			Cocktail
+			// Cocktail
+			searchFilter: '',
 		}
 	},
 
@@ -50,24 +66,34 @@ export default {
 		cocktails() {
 			return this.$store.state.cocktails
 		},
+
+		filteredCocktails() {
+			return this.searchFilter
+				? this.cocktails.filter(cocktail =>
+						cocktail.name
+							.toLowerCase()
+							.includes(this.searchFilter.toLowerCase())
+				  )
+				: this.cocktails
+		},
 	},
 
 	methods: {
-		goToCocktailPage() {
-			this.$navigateTo(Cocktail)/*, { //$showModal?
-				// transition: {},
-  			// transitioniOS: {},
-  			// transitionAndroid: {},
+		goToCocktailPage(cocktail) {
+			this.$navigateTo(Cocktail, {
 				props: {
-					cocktail: cocktailObj
-				}
-			})*/
+					cocktail,
+				},
+			})
+		},
+
+		test(event) {
+			console.log(event)
 		}
 	},
 
 	mounted() {
 		// console.log(this.$store.state.cocktails.length)
-
 		// this.$showModal(Cocktail)
 	},
 }
