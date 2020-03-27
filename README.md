@@ -45,6 +45,7 @@
 - Alle billeder skal have en default, hvis ikke filen findes
 - Efter billede er taget med kamera skal det gemmes i vuex, men ikke på device. Først ved saveCocktail skal det gemmes på device
 	- Kig på at gemme imageSource midlertidigt KUN til visning i misc-tabben (da dette ikke må gemmes som cocktail fordi JSON fucker det op), derefter hvis det gemmes, skal imageSource forkastes og bare path gemmes i vuex, da <Image> læser det på samme måde
+- Giv mulighed for at fjerne billede i create, hvis man ikke vil have det
 - Se om css :highlighted kan bruges til tabs i stedet for js for at style den highlightede
 	- Og evt også mere tab styling https://docs.nativescript.org/ui/styling
 

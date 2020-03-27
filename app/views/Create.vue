@@ -158,20 +158,24 @@ export default {
 	methods: {
 		update(prop, val) {
 			this.$store.commit('update', { prop, val })
-			// this.nextTab()
 		},
 
 		saveCocktail() {
-			const save = this.saveImage(this.miscData.imgSrc)
+			let save
+			if (this.miscData.imgSrc) {
+				save = this.saveImage(this.miscData.imgSrc)
+			}
 
-			if (!save.saved) return console.log('There was an error saving the selected image')
+			// If no attempt of saving img was made, we keep going and just save cocktail with no pic
+			// If attempt was made, but returned false, we log the error:
+			if (save && !save.saved) return console.log('There was an error saving the selected image')
 
 			this.$store.commit('setNested', {
 				path: [
 					'miscData',
 					'imgSrc'
 				],
-				val: save.path
+				val: save ? save.path : ''
 			})
 
 			this.$store.commit('saveCocktail')

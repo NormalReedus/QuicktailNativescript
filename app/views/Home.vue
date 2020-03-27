@@ -5,12 +5,12 @@
 
       <FlexboxLayout>
         <FlexboxLayout class="button-container">
-          <Image src="~/create_btn.png" @tap="navToCreate" class="m-x-25 img" />
+          <Image src="~/create_btn.png" @tap="$navigateTo(Create)" class="m-x-25 img" />
           <Label class="h2">Create</Label>
         </FlexboxLayout>
 
         <FlexboxLayout class="button-container">
-          <Image src="~/cocktails_btn.png" @tap="navToCocktails" class="m-x-25 img" />
+          <Image src="~/cocktails_btn.png" @tap="$navigateTo(Cocktails)" class="m-x-25 img" />
           <Label class="h2">Cocktails</Label>
         </FlexboxLayout>
       </FlexboxLayout>
@@ -40,19 +40,13 @@ export default {
 
 	data() {
 		return {
+			Create,
+			Cocktails,
 			keyToFind: '',
 		}
 	},
 
 	methods: {
-		navToCreate() {
-			this.$navigateTo(Create)
-		},
-
-		navToCocktails() {
-			this.$navigateTo(Cocktails)
-		},
-
 		key() {
 			console.log(appSettings.getString(this.keyToFind))
 		},
