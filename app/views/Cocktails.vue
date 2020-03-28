@@ -11,8 +11,8 @@
     </ActionBar>
 
     <StackLayout>
-      <TextField v-model="searchFilter" hint="Filter..." /> 
-			<!-- Add looking glass icon and an x to clear -->
+      <TextField v-model="searchFilter" hint="Filter..." />
+      <!-- Add looking glass icon and an x to clear -->
 
       <GridLayout>
         <ScrollView row="0">
@@ -33,9 +33,33 @@
           </StackLayout>-->
         </ScrollView>
 
+				<!-- Sidebar button -->
+        <AbsoluteLayout marginTop="87%" row="0">
+          <StackLayout
+            background="orangered"
+            width="56"
+            height="56"
+            borderRadius="0, 28, 28, 0"
+            
+          ></StackLayout>
+        </AbsoluteLayout>
+
+				<!-- Action button - add cocktail -->
         <AbsoluteLayout marginTop="87%" marginLeft="80%" row="0">
           <!-- <ActionButton /> -->
-          <Image src="~/action_button.png" @tap="$navigateTo(Create)" height="56" width="56" />
+          <!-- <Image src="~/action_btn.png" @tap="$navigateTo(Create)" height="56" width="56" /> animate -->
+          <FlexboxLayout background="orangered" width="56" height="56" borderRadius="28" alignItems="center" justifyContent="center">
+            <GridLayout
+              rows="*"
+              horizontalAlignment="center"
+							height="16"
+							width="16"
+							background="blue"
+            >
+              <Label row="1" class="ab-dash--1" />
+              <Label row="1" class="ab-dash--2" />
+            </GridLayout>
+          </FlexboxLayout>
         </AbsoluteLayout>
       </GridLayout>
     </StackLayout>
@@ -89,7 +113,7 @@ export default {
 
 		test(event) {
 			console.log(event)
-		}
+		},
 	},
 
 	mounted() {
@@ -100,4 +124,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.ab-dash--1, .ab-dash--2 {
+		background-color: #fff;
+		transform: translate(0, -2);
+		height: 16;
+		width: 3;
+	}
+
+	.ab-dash--1 {
+		transform: rotate(90deg) translate(0, -2);
+	}
 </style>>

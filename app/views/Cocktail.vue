@@ -16,7 +16,7 @@
           <Image :src="cocktail.imgSrc" />
         </StackLayout>
 
-        <StackLayout width="100%" background="red" padding="10">
+        <StackLayout width="100%" padding="10">
           <Label v-for="val of cocktailVals" :key="val" margin="30">{{ val }}</Label>
         </StackLayout>
       </StackLayout>
