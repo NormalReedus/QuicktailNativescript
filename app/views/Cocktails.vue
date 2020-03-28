@@ -33,31 +33,24 @@
           </StackLayout>-->
         </ScrollView>
 
-				<!-- Sidebar button -->
+        <!-- Sidebar button -->
         <AbsoluteLayout marginTop="87%" row="0">
-          <StackLayout
-            background="orangered"
-            width="56"
-            height="56"
-            borderRadius="0, 28, 28, 0"
-            
-          ></StackLayout>
+          <FlexboxLayout background="orangered" width="56" height="56" borderRadius="0, 28, 28, 0" marginLeft="-15" alignItems="center" justifyContent="center">
+						<GridLayout rows="2, auto" horizontalAlignment="center" height="16" width="16" class="sidebar-btn">
+            	<Label row="1" class="sb-btn-dash--1" />
+              <Label row="1" class="sb-btn-dash--2" />
+            </GridLayout>
+					</FlexboxLayout>
         </AbsoluteLayout>
 
-				<!-- Action button - add cocktail -->
+        <!-- Add button -->
         <AbsoluteLayout marginTop="87%" marginLeft="80%" row="0">
           <!-- <ActionButton /> -->
           <!-- <Image src="~/action_btn.png" @tap="$navigateTo(Create)" height="56" width="56" /> animate -->
-          <FlexboxLayout background="orangered" width="56" height="56" borderRadius="28" alignItems="center" justifyContent="center">
-            <GridLayout
-              rows="*"
-              horizontalAlignment="center"
-							height="16"
-							width="16"
-							background="blue"
-            >
-              <Label row="0" class="ab-dash--1" />
-              <Label row="0" class="ab-dash--2" />
+          <FlexboxLayout @tap="goToCreatePage" background="orangered" width="56" height="56" borderRadius="28" alignItems="center" justifyContent="center">
+            <GridLayout rows="2, auto" horizontalAlignment="center" height="16" width="16">
+            	<Label row="1" class="add-btn-dash--1" />
+              <Label row="1" class="add-btn-dash--2" />
             </GridLayout>
           </FlexboxLayout>
         </AbsoluteLayout>
@@ -83,6 +76,7 @@ export default {
 			Create,
 			// Cocktail
 			searchFilter: '',
+			actionBtnSpinning: false,
 		}
 	},
 
@@ -111,6 +105,13 @@ export default {
 			})
 		},
 
+		goToCreatePage() {
+			this.$navigateTo(Create)
+
+			this.actionBtnSpinning = !this.actionBtnSpinning
+			console.log(this.actionBtnSpinning)
+		},
+
 		test(event) {
 			console.log(event)
 		},
@@ -124,14 +125,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.ab-dash--1, .ab-dash--2 {
-		background-color: #fff;
-		transform: translate(0, -2);
-		height: 16;
-		width: 3;
-	}
+.add-btn-dash--1,
+.add-btn-dash--2 {
+	background-color: #fff;
+	transform: translate(0, -2);
+	height: 16;
+	width: 3;
+}
+.add-btn-dash--1 {
+	transform: rotate(90deg) translate(0, -2);
+}
 
-	.ab-dash--1 {
-		transform: rotate(90deg) translate(0, -2);
-	}
+.sidebar-btn {
+	transform: translateX(5)
+}
+.sb-btn-dash--1,
+.sb-btn-dash--2 {
+	background-color: #fff;
+	height: 16;
+	width: 3;
+}
+.sb-btn-dash--1 {
+	transform: rotate(-45deg) translate(0, -7);
+}
+.sb-btn-dash--2 {
+	transform: rotate(45deg) translate(0, 3);
+}
+
+
+
 </style>>

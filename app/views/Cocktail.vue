@@ -64,10 +64,6 @@ export default {
 			// }
 		},
 	},
-
-	created() {
-		console.log(this.cocktail)
-	},
 }
 </script>
 

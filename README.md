@@ -54,6 +54,6 @@
 
 ## Inspo:
 - Styling:
-	- NS samples
+	- NS samples https://market.nativescript.org/?tab=samples&framework=vue&category=all_samples
 	- Youtube creators
 	- Nativescript theme siden
