@@ -56,8 +56,8 @@
 							width="16"
 							background="blue"
             >
-              <Label row="1" class="ab-dash--1" />
-              <Label row="1" class="ab-dash--2" />
+              <Label row="0" class="ab-dash--1" />
+              <Label row="0" class="ab-dash--2" />
             </GridLayout>
           </FlexboxLayout>
         </AbsoluteLayout>
