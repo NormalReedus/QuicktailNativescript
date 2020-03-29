@@ -48,7 +48,7 @@
           <!-- <ActionButton /> -->
           <!-- <Image src="~/action_btn.png" @tap="$navigateTo(Create)" height="56" width="56" /> animate -->
           <FlexboxLayout @tap="goToCreatePage" background="orangered" width="56" height="56" borderRadius="28" alignItems="center" justifyContent="center">
-            <GridLayout rows="2, auto" horizontalAlignment="center" height="16" width="16">
+            <GridLayout rows="2, auto" horizontalAlignment="center" height="16" width="16" >
             	<Label row="1" class="add-btn-dash--1" />
               <Label row="1" class="add-btn-dash--2" />
             </GridLayout>
@@ -76,7 +76,7 @@ export default {
 			Create,
 			// Cocktail
 			searchFilter: '',
-			actionBtnSpinning: false,
+			addBtnSpinning: false,
 		}
 	},
 
@@ -108,8 +108,8 @@ export default {
 		goToCreatePage() {
 			this.$navigateTo(Create)
 
-			this.actionBtnSpinning = !this.actionBtnSpinning
-			console.log(this.actionBtnSpinning)
+			this.addBtnSpinning = !this.addBtnSpinning
+			console.log(this.addBtnSpinning)
 		},
 
 		test(event) {
