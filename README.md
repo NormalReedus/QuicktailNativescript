@@ -37,6 +37,7 @@
 - Tilbage-knapper?
 - Søgefunktion i cocktails (SAMPLES)
 	- Modal med søge-settings (så man kan søge i ingredienser etc også)
+- https://github.com/bradmartin/nativescript-drawingpad
 
 ## Fix:
 - Lav create siden om til at bruge v-for
