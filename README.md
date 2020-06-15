@@ -1,5 +1,7 @@
 # Quicktail - Quick Cocktails
 
+En iOS & Android native app med Nativescript Vue til let at nedskrive og gemme cocktailopskrifter, når det skal gå hurtigt
+
 ## Specs:
 - Man skal kunne tilføje metoder osv
 	-	Man skal kunne vælge en glas-type til sine egne tilføjede glas, som dukker op i visning (jeg skal lave illustrationer)
