@@ -5,7 +5,7 @@ import defaults from '@/components/defaults.js'
 const appSettings = require('tns-core-modules/application-settings')
 setupDefaults() // Default glasses etc in appSettings
 
-const fsm = require('tns-core-modules/file-system')
+const fs = require('tns-core-modules/file-system')
 clearCocktails()
 
 import { Cocktail } from '@/components/classes'
@@ -71,7 +71,7 @@ export default new Vuex.Store({
 			ref.reduce((acc, cur) => acc[cur], state)[prop] = val
 		},
 
-		saveCocktail(state) {
+		saveCocktailData(state) {
 			// state.cocktails = JSON.parse(appSettings.getString('cocktails'))
 
 			state.cocktails.push(
@@ -101,6 +101,51 @@ export default new Vuex.Store({
 				imgSrc: '',
 				name: ''
 			}
+		}
+	},
+
+	actions: {
+		saveCocktail({ commit, state }) {
+			return new Promise((resolve, reject) => {
+				
+				let save
+				// Only save image, if one was chosen:
+				if (state.miscData.imgSrc) {
+					
+					// First, the picture:
+					const filename = uniqueFilename(state.miscData.name)
+					// The app's read + write folder, filename, and the full path is defined:
+					const folder = fs.knownFolders.documents().path
+					const path = fs.path.join(folder, filename)
+					
+					// We save the img to the specified path:
+					const imageSource = state.miscData.imgSrc
+					save = {
+						saved: imageSource.saveToFile(path, 'png'),
+						path
+					}
+				}
+				
+				// If no attempt of saving img was made, we keep going and just save cocktail with no pic
+				// If attempt was made, but returned false, we log the error:
+				if (save && !save.saved) {
+					reject('There was an error saving the selected image')
+				}
+				
+				// imgSrc is now set to the pathstring to the file (if pic was chosen), since type <imageSource> is only temp. until saving:
+				commit('setNested', {
+					path: [
+						'miscData',
+						'imgSrc'
+					],
+					val: save ? save.path : ''
+				})
+				
+				commit('saveCocktailData')
+				commit('discardCocktail') // Clears data
+				
+				resolve()
+			})
 		}
 	},
 })
@@ -143,18 +188,38 @@ function setupDefaults() {
 	// }	
 
 	//if (!appSettings.hasKey('cocktails')) {
-		appSettings.setString('cocktails', '[]')
+	appSettings.setString('cocktails', '[]')
 	//}
 }
 
 function clearCocktails() {
 	//console.log(JSON.parse(appSettings.getString('cocktails')))
 	//! Deletes all cockail images:
-	fsm.knownFolders.documents().getEntities().then(arr => {
+	fs.knownFolders.documents().getEntities().then(arr => {
 		arr.forEach(e => {
 			if (e._extension) e.remove()
 		})
 	})
 
 	// appSettings.setString('cocktails', '[]')
+}
+
+async function deleteImage(path) {
+	try {
+
+		const file = fs.File.fromPath(path)
+
+		await file.remove()
+
+		console.log('Image deleted')
+
+	} catch (err) {
+		console.log(err)
+	}
+
+}
+
+function uniqueFilename(nameBase) {
+	// 6 digits should be enough:
+	return nameBase + Date.now() + '.png'
 }

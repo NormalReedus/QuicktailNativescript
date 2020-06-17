@@ -165,32 +165,37 @@ export default {
 			this.$store.commit('update', { prop, val })
 		},
 
-		saveCocktail() {
+		async saveCocktail() {
 			if (!this.dataIsSet) {
 				return dialogs.alert("One or more necessary fields have not been filled.")
 			}
 
-			let save
-			if (this.miscData.imgSrc) {
-				save = this.saveImage(this.miscData.imgSrc)
-			}
-
-			// If no attempt of saving img was made, we keep going and just save cocktail with no pic
-			// If attempt was made, but returned false, we log the error:
-			if (save && !save.saved) return console.log('There was an error saving the selected image')
-
-			this.$store.commit('setNested', {
-				path: [
-					'miscData',
-					'imgSrc'
-				],
-				val: save ? save.path : ''
+			//! async await:
+			this.$store.dispatch('saveCocktail').then(res => {
+				this.$navigateBack()
+			}, error => {
+				console.log(error)
 			})
 
-			this.$store.commit('saveCocktail')
-			this.$store.commit('discardCocktail') // Clears data
+			// // let save
+			// if (this.miscData.imgSrc) {
+			// 	//save = this.saveImage(this.miscData.imgSrc)
+			// }
 
-			this.$navigateBack()
+			// // If no attempt of saving img was made, we keep going and just save cocktail with no pic
+			// // If attempt was made, but returned false, we log the error:
+			// if (save && !save.saved) return console.log('There was an error saving the selected image')
+
+			// this.$store.commit('setNested', {
+			// 	path: [
+			// 		'miscData',
+			// 		'imgSrc'
+			// 	],
+			// 	val: save ? save.path : ''
+			// })
+
+			// this.$store.commit('saveCocktail')
+			// this.$store.commit('discardCocktail') // Clears data
 		},
 
 		async discardCocktail() {
