@@ -61,7 +61,7 @@
 
       <StackLayout row="1">
         <Button text="Save" class="-primary" @tap="saveCocktail" />
-        <Button text="Discard" class @tap="discardCocktail" />
+        <Button text="Discard" @tap="discardCocktail" />
       </StackLayout>
     </GridLayout>
   </Page>
@@ -153,6 +153,11 @@ export default {
 					return false
 			}
 		},
+
+		dataIsSet() {
+			//! Tilføj default img her
+			return this.glassData && this.iceData && this.methodData && this.ingredientsData.length > 0 && this.miscData.name
+		}
 	},
 
 	methods: {
@@ -161,6 +166,10 @@ export default {
 		},
 
 		saveCocktail() {
+			if (!this.dataIsSet) {
+				return dialogs.alert("One or more necessary fields have not been filled.")
+			}
+
 			let save
 			if (this.miscData.imgSrc) {
 				save = this.saveImage(this.miscData.imgSrc)
@@ -179,7 +188,7 @@ export default {
 			})
 
 			this.$store.commit('saveCocktail')
-			this.$store.commit('discardCocktail') // Clears earlier data
+			this.$store.commit('discardCocktail') // Clears data
 
 			this.$navigateBack()
 		},
@@ -214,6 +223,7 @@ export default {
 
 			// We save the img to the specified path:
 			const saved = imageSource.saveToFile(path, 'png')
+			// saved is true or false:
 			return { saved, path }
 		},
 

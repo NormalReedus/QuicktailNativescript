@@ -35,21 +35,43 @@
 
         <!-- Sidebar button -->
         <AbsoluteLayout marginTop="87%" row="0">
-          <FlexboxLayout background="orangered" width="56" height="56" borderRadius="0, 28, 28, 0" marginLeft="-15" alignItems="center" justifyContent="center">
-						<GridLayout rows="2, auto" horizontalAlignment="center" height="16" width="16" class="sidebar-btn">
-            	<Label row="1" class="sb-btn-dash--1" />
+          <FlexboxLayout
+            background="orangered"
+            width="56"
+            height="56"
+            borderRadius="0, 28, 28, 0"
+            marginLeft="-15"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <GridLayout
+              rows="2, auto"
+              horizontalAlignment="center"
+              height="16"
+              width="16"
+              class="sidebar-btn"
+            >
+              <Label row="1" class="sb-btn-dash--1" />
               <Label row="1" class="sb-btn-dash--2" />
             </GridLayout>
-					</FlexboxLayout>
+          </FlexboxLayout>
         </AbsoluteLayout>
 
         <!-- Add button -->
         <AbsoluteLayout marginTop="87%" marginLeft="80%" row="0">
           <!-- <ActionButton /> -->
           <!-- <Image src="~/action_btn.png" @tap="$navigateTo(Create)" height="56" width="56" /> animate -->
-          <FlexboxLayout @tap="goToCreatePage" background="orangered" width="56" height="56" borderRadius="28" alignItems="center" justifyContent="center">
-            <GridLayout rows="2, auto" horizontalAlignment="center" height="16" width="16" >
-            	<Label row="1" class="add-btn-dash--1" />
+          <FlexboxLayout
+            @tap="goToCreatePage"
+            background="orangered"
+            width="56"
+            height="56"
+            borderRadius="28"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <GridLayout rows="2, auto" horizontalAlignment="center" height="16" width="16">
+              <Label row="1" class="add-btn-dash--1" />
               <Label row="1" class="add-btn-dash--2" />
             </GridLayout>
           </FlexboxLayout>
@@ -62,6 +84,8 @@
 <script>
 import Create from './Create'
 import Cocktail from './Cocktail'
+const appSettings = require('tns-core-modules/application-settings')
+const fsm = require('tns-core-modules/file-system')
 // import ActionButton from '@/components/ActionButton'
 
 export default {
@@ -112,15 +136,32 @@ export default {
 			console.log(this.addBtnSpinning)
 		},
 
-		test(event) {
-			console.log(event)
+
+		//! DEBUGGING:
+		keys() {
+			console.log(appSettings.getAllKeys())
+		},
+
+		files() {
+			console.log(JSON.parse(appSettings.getString('cocktails')))
+			fsm.knownFolders.documents().getEntities().then(arr => {
+				arr.forEach(e => {
+					if (e._extension) console.log(e)
+				})
+			})
+		},
+
+		clear() {
+			appSettings.setString('cocktails', '[]')
 		},
 	},
 
+
 	mounted() {
-		// console.log(this.$store.state.cocktails.length)
-		// this.$showModal(Cocktail)
-	},
+		this.files()
+		console.log('---')
+		this.keys()
+	}
 }
 </script>
 
@@ -137,7 +178,7 @@ export default {
 }
 
 .sidebar-btn {
-	transform: translateX(5)
+	transform: translateX(5);
 }
 .sb-btn-dash--1,
 .sb-btn-dash--2 {
@@ -151,7 +192,4 @@ export default {
 .sb-btn-dash--2 {
 	transform: rotate(45deg) translate(0, 3);
 }
-
-
-
 </style>>

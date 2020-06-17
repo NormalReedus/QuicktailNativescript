@@ -20,9 +20,6 @@
           <Label v-for="val of cocktailVals" :key="val" margin="30">{{ val }}</Label>
         </StackLayout>
       </StackLayout>
-      <!-- <StackLayout>
-			<Label v-for="val of cocktailVals" :key="val">{{ val }}</Label>
-      </StackLayout>-->
     </ScrollView>
   </Page>
 </template>
@@ -42,6 +39,7 @@ export default {
 	},
 
 	methods: {
+		// Parallax effect:
 		onScroll() {
 			//access to the native event
 			const scrollView = this.$refs.scrollView.nativeView
@@ -64,6 +62,10 @@ export default {
 			// }
 		},
 	},
+
+	mounted() {
+		console.log(this.cocktail)
+	}
 }
 </script>
 

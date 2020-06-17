@@ -16,14 +16,19 @@
         <Button @tap="pickPhoto">Gallery</Button>
       </FlexboxLayout>
 
-      <Image
-        v-if="imgSrc"
+			<AbsoluteLayout v-if="imgSrc" row="3">
+				<Image
+				width="100%"
         :src="imgSrc"
-        row="3"
         loadMode="async"
         stretch="aspectFit"
-        class="img-circle p-20"
-      />
+        class="img-circle"
+      	/>
+			
+				<Label color="white" fontSize="30" text="" class="far" @tap="imgSrc = ''" margin="20"/>
+			</AbsoluteLayout>
+
+      
     </GridLayout>
   </ScrollView>
 </template>
@@ -130,9 +135,10 @@ export default {
 			let imageSource = await source.fromAsset(imageAsset)
 			imageSource = await this.cropImage(imageSource)
 
+			// Important that we only use the imageSource here, because it does not save well in JSON
+			// The source is thus only for temporary use (after selection, before saving)
+			// After save, we load from the path when displaying image
 			this.imgSrc = imageSource
-
-			//TODO: Flyt save til create-vue - saveCocktail, og sørg for at den nuværende imgSrc (som har en imageSource som val) bliver ændret til at have en val svarende til den path, vi får når billedet er gemt
 		},
 
 		async cropImage(imageSource) {
@@ -150,8 +156,6 @@ export default {
 			imageSource = args.image
 			return imageSource
 		},
-
-		
 	},
 }
 </script>

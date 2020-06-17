@@ -49,6 +49,12 @@ export default {
 		},
 	},
 
+	mounted() {
+		this.test()
+		console.log('---')
+		this.keys()
+	}
+
 }
 </script>
 
