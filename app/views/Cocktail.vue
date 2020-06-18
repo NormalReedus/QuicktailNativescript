@@ -18,6 +18,7 @@
 
         <StackLayout width="100%" padding="10">
           <Label v-for="val of cocktailVals" :key="val" margin="30">{{ val }}</Label>
+					<Button @tap="deleteCocktail" class="-primary -warn">Delete Cocktail</Button>
         </StackLayout>
       </StackLayout>
     </ScrollView>
@@ -25,6 +26,8 @@
 </template>
 
 <script>
+const dialogs = require('tns-core-modules/ui/dialogs')
+
 export default {
 	name: 'Cocktail',
 
@@ -45,22 +48,28 @@ export default {
 			const scrollView = this.$refs.scrollView.nativeView
 			const imgView = this.$refs.imgView.nativeView
 
-			// if the offset is less than the height of the header.
-			// if (scrollView.verticalOffset < 1024) {
 			const offset = scrollView.verticalOffset / 1.65 // you can adjust this number to make the parallax more subtle or dramatic
 			if (scrollView.ios) {
 				// iOS adjust the position with an animation to create a smother scrolling effect.
 				imgView.animate({ translate: { x: 0, y: offset } })
-				// .then(
-				// 	() => {},
-				// 	() => {}
-				// )
+
 			} else {
 				// Android, animations are jerky so instead just adjust the position without animation.
 				imgView.translateY = Math.floor(offset)
 			}
-			// }
 		},
+
+		async deleteCocktail() {
+			const remove = await dialogs.confirm({
+				title: "Delete Cocktail?",
+				okButtonText: 'Delete',
+				cancelButtonText: 'Cancel',
+			})
+
+			if (remove) {
+				this.$store.dispatch('deleteCocktail', { id: this.cocktail.id })
+			}
+		}
 	},
 
 	mounted() {

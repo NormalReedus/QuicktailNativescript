@@ -55,9 +55,15 @@ En iOS & Android native app med Nativescript Vue til let at nedskrive og gemme c
 - Se om css :highlighted kan bruges til tabs i stedet for js for at style den highlightede
 	- Og evt også mere tab styling https://docs.nativescript.org/ui/styling
 - Flyt saving af billeder til store, så alt er samlet
+- Ret MiscData til at være separate og drop -data
+- Test removal (og navigate back ligesom saveCocktail)
+	- Tilføj loggers på state.cocktails og appSettings osv
 
 ## Inspo:
 - Styling:
 	- NS samples https://market.nativescript.org/?tab=samples&framework=vue&category=all_samples
 	- Youtube creators
 	- Nativescript theme siden
+
+### Debugging:
+devtools://devtools/bundled/inspector.html?ws=localhost:40000

@@ -1,7 +1,11 @@
 <template>
   <Page>
     <ActionBar title="Create Cocktail">
-      <StackLayout orientation="horizontal" ios:horizontalAlignment="center" android:horizontalAlignment="center">
+      <StackLayout
+        orientation="horizontal"
+        ios:horizontalAlignment="center"
+        android:horizontalAlignment="center"
+      >
         <Label text="Create Cocktail" class="h2" />
       </StackLayout>
     </ActionBar>
@@ -29,10 +33,12 @@
             <Label>Garnish</Label>
           </TabStripItem>
 
-          <TabStripItem :class="{ filled: miscData.description || miscData.imgSrc || miscData.name }">
+          <TabStripItem
+            :class="{ filled: miscData.description || miscData.imgSrc || miscData.name }"
+          >
             <Label>Misc.</Label>
           </TabStripItem>
-        </TabStrip> 
+        </TabStrip>
 
         <TabContentItem>
           <FormGlass @nextTab="nextTab" />
@@ -155,9 +161,15 @@ export default {
 		},
 
 		dataIsSet() {
-			//! Tilføj default img her
-			return this.glassData && this.iceData && this.methodData && this.ingredientsData.length > 0 && this.miscData.name
-		}
+			//! Tilføj default img her, hvis intet er sat
+			return (
+				this.glassData &&
+				this.iceData &&
+				this.methodData &&
+				this.ingredientsData.length > 0 &&
+				this.miscData.name
+			)
+		},
 	},
 
 	methods: {
@@ -167,35 +179,17 @@ export default {
 
 		async saveCocktail() {
 			if (!this.dataIsSet) {
-				return dialogs.alert("One or more necessary fields have not been filled.")
+				return dialogs.alert(
+					'One or more necessary fields have not been filled.'
+				)
 			}
 
-			//! async await:
-			this.$store.dispatch('saveCocktail').then(res => {
+			try {
+				await this.$store.dispatch('saveCocktail')
 				this.$navigateBack()
-			}, error => {
-				console.log(error)
-			})
-
-			// // let save
-			// if (this.miscData.imgSrc) {
-			// 	//save = this.saveImage(this.miscData.imgSrc)
-			// }
-
-			// // If no attempt of saving img was made, we keep going and just save cocktail with no pic
-			// // If attempt was made, but returned false, we log the error:
-			// if (save && !save.saved) return console.log('There was an error saving the selected image')
-
-			// this.$store.commit('setNested', {
-			// 	path: [
-			// 		'miscData',
-			// 		'imgSrc'
-			// 	],
-			// 	val: save ? save.path : ''
-			// })
-
-			// this.$store.commit('saveCocktail')
-			// this.$store.commit('discardCocktail') // Clears data
+			} catch (err) {
+				console.log(err)
+			}
 		},
 
 		async discardCocktail() {
@@ -217,24 +211,6 @@ export default {
 				// less than number of tabs
 				this.selectedTabIndex++
 			}
-		},
-
-		// Takes an imageSource and returns the path to where the img was saved (and whether it was saved):
-		saveImage(imageSource) {
-			const filename = this.uniqueFilename()
-			// The app's read + write folder, filename, and the full path is defined:
-			const folder = fs.knownFolders.documents().path
-			const path = fs.path.join(folder, filename)
-
-			// We save the img to the specified path:
-			const saved = imageSource.saveToFile(path, 'png')
-			// saved is true or false:
-			return { saved, path }
-		},
-
-		uniqueFilename() {
-			// 6 digits should be enough:
-			return this.miscData.name + Date.now() + '.png'
 		},
 	},
 }

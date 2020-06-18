@@ -22,6 +22,7 @@ export default new Vuex.Store({
 		garnishes: JSON.parse(appSettings.getString('garnishes')),
 
 		// Selected components when creating cocktails:
+		id: '',
 		glassData: '',
 		iceData: '',
 		methodData: '',
@@ -76,6 +77,7 @@ export default new Vuex.Store({
 
 			state.cocktails.push(
 				new Cocktail(
+					state.id,
 					state.glassData,
 					state.iceData,
 					state.methodData,
@@ -88,6 +90,13 @@ export default new Vuex.Store({
 			appSettings.setString('cocktails', JSON.stringify(state.cocktails))
 
 			console.log(state.cocktails[state.cocktails.length - 1].imgSrc)
+		},
+
+		deleteCocktailData(state, { index }) {
+			state.cocktails.splice(index, 1)
+
+			appSettings.setString('cocktails', JSON.stringify(state.cocktails))
+			console.log("Cocktail data removed")
 		},
 
 		discardCocktail(state) {
@@ -107,13 +116,14 @@ export default new Vuex.Store({
 	actions: {
 		saveCocktail({ commit, state }) {
 			return new Promise((resolve, reject) => {
+				state.id = uniqueID()
 				
 				let save
 				// Only save image, if one was chosen:
 				if (state.miscData.imgSrc) {
 					
 					// First, the picture:
-					const filename = uniqueFilename(state.miscData.name)
+					const filename = genFilename(state.miscData.name, state.id)
 					// The app's read + write folder, filename, and the full path is defined:
 					const folder = fs.knownFolders.documents().path
 					const path = fs.path.join(folder, filename)
@@ -129,7 +139,7 @@ export default new Vuex.Store({
 				// If no attempt of saving img was made, we keep going and just save cocktail with no pic
 				// If attempt was made, but returned false, we log the error:
 				if (save && !save.saved) {
-					reject('There was an error saving the selected image')
+					return reject(new Error('There was an error saving the selected image'))
 				}
 				
 				// imgSrc is now set to the pathstring to the file (if pic was chosen), since type <imageSource> is only temp. until saving:
@@ -144,8 +154,24 @@ export default new Vuex.Store({
 				commit('saveCocktailData')
 				commit('discardCocktail') // Clears data
 				
-				resolve()
+				return resolve()
 			})
+		},
+
+		deleteCocktail({ commit, state }, { id }) {
+			// Finds the index of the cocktail to be deleted:
+			const index = state.cocktails.findIndex(cocktail => {
+				cocktail.id == id
+			})
+			
+			// The path to the image file:
+			const { imgSrc } = state.cocktails[index]
+
+			// Lets a mutation delete the data from Vuex and appSettings:
+			commit('deleteCocktailData', { index })
+
+			// Deletes the image from app storage:
+			deleteImage(imgSrc)
 		}
 	},
 })
@@ -159,6 +185,28 @@ Array.prototype.remove = function (value) {
 	this.splice(i, 1)
 
 	return true
+}
+
+function genFilename(nameBase, id) {
+	return `${nameBase}-${id}.png`
+}
+
+function uniqueID() {
+	return Date.now()
+}
+
+async function deleteImage(path) {
+	try {
+
+		const file = fs.File.fromPath(path)
+
+		await file.remove()
+
+		console.log('Image deleted')
+
+	} catch (err) {
+		console.log(err)
+	}
 }
 
 //* Loads default values etc into appSettings if first boot:
@@ -192,6 +240,9 @@ function setupDefaults() {
 	//}
 }
 
+
+//! DEV
+
 function clearCocktails() {
 	//console.log(JSON.parse(appSettings.getString('cocktails')))
 	//! Deletes all cockail images:
@@ -204,22 +255,3 @@ function clearCocktails() {
 	// appSettings.setString('cocktails', '[]')
 }
 
-async function deleteImage(path) {
-	try {
-
-		const file = fs.File.fromPath(path)
-
-		await file.remove()
-
-		console.log('Image deleted')
-
-	} catch (err) {
-		console.log(err)
-	}
-
-}
-
-function uniqueFilename(nameBase) {
-	// 6 digits should be enough:
-	return nameBase + Date.now() + '.png'
-}
