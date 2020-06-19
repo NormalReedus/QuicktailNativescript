@@ -59,8 +59,7 @@
 
         <!-- Add button -->
         <AbsoluteLayout marginTop="87%" marginLeft="80%" row="0">
-          <!-- <ActionButton /> -->
-          <!-- <Image src="~/action_btn.png" @tap="$navigateTo(Create)" height="56" width="56" /> animate -->
+          
           <FlexboxLayout
             @tap="goToCreatePage"
             background="orangered"
@@ -86,7 +85,6 @@ import Create from './Create'
 import Cocktail from './Cocktail'
 const appSettings = require('tns-core-modules/application-settings')
 const fsm = require('tns-core-modules/file-system')
-// import ActionButton from '@/components/ActionButton'
 
 export default {
 	name: 'Cocktails',
