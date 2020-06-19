@@ -3,7 +3,7 @@
 
   <ScrollView v-else>
     <StackLayout orientation="vertical" class="m-x-15">
-      <FlexboxLayout v-for="ingredient of ingredientsData" :key="ingredient" alignItems="center" justifyContent="flex-end">
+      <FlexboxLayout v-for="ingredient of ingredients" :key="ingredient" alignItems="center" justifyContent="flex-end">
         <Label flexGrow="1">{{ ingredient }}</Label>
         <Button class="-rounded-lg" @tap="removeIngredient(ingredient)">x</Button>
       </FlexboxLayout>
@@ -43,8 +43,8 @@ export default {
 	},
 
 	computed: {
-		ingredientsData() {
-			return this.$store.state.ingredientsData
+		ingredients() {
+			return this.$store.state.ingredients
 		},
 
 		selectedUnit() {
@@ -62,14 +62,20 @@ export default {
 
 			const data = this.amt + ' ' + this.selectedUnit + ' ' + this.ingredient
 
-			this.$store.commit('add', { array: 'ingredientsData', data })
+			this.$store.commit('add', {
+				array: 'ingredients',
+				data
+			})
 
 			this.ingredient = ''
 			this.amt = ''
 		},
 
 		removeIngredient(data) {
-			this.$store.commit('remove', { array: 'ingredientsData', data })
+			this.$store.commit('remove', {
+				array: 'ingredients',
+				data
+			})
 		},
 
 		toggleUnitPicker() {

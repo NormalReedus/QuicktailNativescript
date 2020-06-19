@@ -13,28 +13,28 @@
     <GridLayout rows="*, auto" columns="*">
       <Tabs v-model="selectedTabIndex" row="0">
         <TabStrip :class="{ filled: selectedTabDataRef }">
-          <TabStripItem :class="{ filled: glassData }">
+          <TabStripItem :class="{ filled: glass }">
             <Label>Glass</Label>
           </TabStripItem>
 
-          <TabStripItem :class="{ filled: iceData }">
+          <TabStripItem :class="{ filled: ice }">
             <Label>Ice</Label>
           </TabStripItem>
 
-          <TabStripItem :class="{ filled: methodData }">
+          <TabStripItem :class="{ filled: method }">
             <Label>Method</Label>
           </TabStripItem>
 
-          <TabStripItem :class="{ filled: ingredientsData.length !== 0 }">
+          <TabStripItem :class="{ filled: ingredients.length !== 0 }">
             <Label>Ingredients</Label>
           </TabStripItem>
 
-          <TabStripItem :class="{ filled: garnishData }">
+          <TabStripItem :class="{ filled: garnish }">
             <Label>Garnish</Label>
           </TabStripItem>
 
           <TabStripItem
-            :class="{ filled: miscData.description || miscData.imgSrc || miscData.name }"
+            :class="{ filled: name }"
           >
             <Label>Misc.</Label>
           </TabStripItem>
@@ -103,28 +103,36 @@ export default {
 	},
 
 	computed: {
-		glassData() {
-			return this.$store.state.glassData
+		glass() {
+			return this.$store.state.glass
 		},
 
-		iceData() {
-			return this.$store.state.iceData
+		ice() {
+			return this.$store.state.ice
 		},
 
-		methodData() {
-			return this.$store.state.methodData
+		method() {
+			return this.$store.state.method
 		},
 
-		ingredientsData() {
-			return this.$store.state.ingredientsData
+		ingredients() {
+			return this.$store.state.ingredients
 		},
 
-		garnishData() {
-			return this.$store.state.garnishData
+		garnish() {
+			return this.$store.state.garnish
 		},
 
-		miscData() {
-			return this.$store.state.miscData
+		description() {
+			return this.$store.state.description
+		},
+
+		imgSrc() {
+			return this.$store.state.imgSrc
+		},
+
+		name() {
+			return this.$store.state.name
 		},
 
 		selectedTabDataRef() {
@@ -132,27 +140,27 @@ export default {
 			// and checks if the tab is "filled" like with the individual tab labels:
 			switch (this.selectedTabIndex) {
 				case 0:
-					return this.glassData
+					return this.glass
 					break
 
 				case 1:
-					return this.iceData
+					return this.ice
 					break
 
 				case 2:
-					return this.methodData
+					return this.method
 					break
 
 				case 3:
-					return this.ingredientsData.length !== 0
+					return this.ingredients.length !== 0
 					break
 
 				case 4:
-					return this.garnishData
+					return this.garnish
 					break
 
 				case 5:
-					return this.miscData.description || this.miscData.imgSrc
+					return this.description || this.imgSrc
 					break
 
 				default:
@@ -163,11 +171,11 @@ export default {
 		dataIsSet() {
 			//! Tilføj default img her, hvis intet er sat
 			return (
-				this.glassData &&
-				this.iceData &&
-				this.methodData &&
-				this.ingredientsData.length > 0 &&
-				this.miscData.name
+				this.glass &&
+				this.ice &&
+				this.method &&
+				this.ingredients.length > 0 &&
+				this.name
 			)
 		},
 	},
@@ -185,6 +193,7 @@ export default {
 			}
 
 			try {
+				// We await to make sure we catch any errors before navigating back:
 				await this.$store.dispatch('saveCocktail')
 				this.$navigateBack()
 			} catch (err) {
@@ -199,11 +208,10 @@ export default {
 				cancelButtonText: 'Cancel',
 			})
 
-			if (discard) {
-				this.$store.commit('discardCocktail')
+			if (!discard) return
 
-				this.$navigateBack()
-			}
+			this.$store.commit('discardCocktail')
+			this.$navigateBack()
 		},
 
 		nextTab() {

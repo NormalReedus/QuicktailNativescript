@@ -55,37 +55,40 @@ export default {
 	computed: {
 		name: {
 			get() {
-				return this.$store.state.miscData.name
+				return this.$store.state.name
 			},
 
-			set(val) {
-				this.$store.commit('setNested', {
-					path: ['miscData', 'name'],
-					val,
+			set(data) {
+				this.$store.commit('update', {
+					prop: 'name',
+					data,
 				})
 			},
 		},
 
 		description: {
 			get() {
-				return this.$store.state.miscData.description
+				return this.$store.state.description
 			},
 
-			set(val) {
-				this.$store.commit('setNested', {
-					path: ['miscData', 'description'],
-					val,
+			set(data) {
+				this.$store.commit('update', {
+					prop: 'description',
+					data,
 				})
 			},
 		},
 
 		imgSrc: {
 			get() {
-				return this.$store.state.miscData.imgSrc
+				return this.$store.state.imgSrc
 			},
 
-			set(val) {
-				this.$store.commit('setNested', { path: ['miscData', 'imgSrc'], val })
+			set(data) {
+				this.$store.commit('update', { 
+					prop: 'imgSrc',
+					data 
+				})
 			},
 		},
 	},

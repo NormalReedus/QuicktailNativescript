@@ -1,5 +1,5 @@
 export class Cocktail {
-	constructor(id, glass, ice, method, ingredients, garnish, { description, imgSrc, name }) {
+	constructor({ id, glass, ice, method, ingredients, garnish, description, imgSrc, name }) {
 		this.id = id
 		this.glass = glass
 		this.ice = ice
@@ -10,7 +10,7 @@ export class Cocktail {
 		this.imgSrc = imgSrc
 		this.name = name
 
-		this.favorited = false
+		this.favourite = false
 	}
 }
 

@@ -4,8 +4,8 @@
       <Button
         v-for="ice of ices"
         :key="ice"
-        @tap="updateIceData(ice)"
-        :class="{ selected: iceData === ice }"
+        @tap="updateIce(ice)"
+        :class="{ selected: ice === ice }"
         class="h2 -primary -rounded-sm"
         flexGrow="1"
         height="60"
@@ -24,24 +24,27 @@ export default {
 			return this.$store.state.ices
 		},
 
-		iceData: {
+		ice: {
 			get() {
-				return this.$store.state.iceData
+				return this.$store.state.ice
 			},
 
 			set(data) {
-				this.$store.commit('update', { prop: 'iceData', data })
+				this.$store.commit('update', {
+					prop: 'ice',
+					data
+				})
 			},
 		},
 	},
 
 	methods: {
-		updateIceData(data) {
+		updateIce(data) {
 			// We can assign directly to state, since our setter in computed uses commit:
-			if (data === this.iceData) {
-				this.iceData = null
+			if (data === this.ice) {
+				this.ice = null
 			} else {
-				this.iceData = data
+				this.ice = data
 			}
 
 			this.$emit('nextTab')

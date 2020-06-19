@@ -23,16 +23,19 @@ export default new Vuex.Store({
 
 		// Selected components when creating cocktails:
 		id: '',
-		glassData: '',
-		iceData: '',
-		methodData: '',
-		ingredientsData: [], // Has to be empty array initially
-		garnishData: '',
-		miscData: {
-			description: '',
-			imgSrc: '',
-			name: ''
-		},
+		glass: '',
+		ice: '',
+		method: '',
+		ingredients: [], // Has to be empty array initially
+		garnish: '',
+		description: '',
+		imgSrc: '',
+		name: '',
+		// miscData: {
+		// 	description: '',
+		// 	imgSrc: '',
+		// 	name: ''
+		// },
 
 		// List to show:
 		cocktails: JSON.parse(appSettings.getString('cocktails')),
@@ -76,15 +79,17 @@ export default new Vuex.Store({
 			// state.cocktails = JSON.parse(appSettings.getString('cocktails'))
 
 			state.cocktails.push(
-				new Cocktail(
-					state.id,
-					state.glassData,
-					state.iceData,
-					state.methodData,
-					state.ingredientsData,
-					state.garnishData,
-					state.miscData
-				)
+				new Cocktail( {
+					id: state.id,
+					glass: state.glass,
+					ice: state.ice,
+					method: state.method,
+					ingredients: state.ingredients,
+					garnish: state.garnish,
+					description: state.description,
+					imgSrc: state.imgSrc,
+					name: state.name
+				})
 			)
 
 			appSettings.setString('cocktails', JSON.stringify(state.cocktails))
@@ -100,75 +105,79 @@ export default new Vuex.Store({
 		},
 
 		discardCocktail(state) {
-			state.glassData = null
-			state.iceData = null
-			state.methodData = null
-			state.ingredientsData = []
-			state.garnishData = null
-			state.miscData = {
-				description: '',
-				imgSrc: '',
-				name: ''
-			}
+			state.glass = null
+			state.ice = null
+			state.method = null
+			state.ingredients = []
+			state.garnish = null
+			state.description = ''
+			state.imgSrc = ''
+			state.name = ''
+			// state.miscData = {
+			// 	description: '',
+			// 	imgSrc: '',
+			// 	name: ''
+			// }
+		},
+
+		toggleFavourite(state, { id }) {
+			const cocktail = state.cocktails.find(cocktail => cocktail.id = id)
+			cocktail.favourite = !cocktail.favourite
+
+			appSettings.setString('cocktails', JSON.stringify(state.cocktails))
 		}
 	},
 
 	actions: {
-		saveCocktail({ commit, state }) {
-			return new Promise((resolve, reject) => {
-				state.id = uniqueID()
-				
-				let save
-				// Only save image, if one was chosen:
-				if (state.miscData.imgSrc) {
-					
-					// First, the picture:
-					const filename = genFilename(state.miscData.name, state.id)
-					// The app's read + write folder, filename, and the full path is defined:
-					const folder = fs.knownFolders.documents().path
-					const path = fs.path.join(folder, filename)
-					
-					// We save the img to the specified path:
-					const imageSource = state.miscData.imgSrc
-					save = {
-						saved: imageSource.saveToFile(path, 'png'),
-						path
-					}
+		async saveCocktail({ commit, state }) {
+			state.id = uniqueID()
+
+			let save
+			// Only save image, if one was chosen:
+			if (state.imgSrc) {
+
+				// First, the picture:
+				const filename = genFilename(state.name, state.id)
+				// The app's read + write folder, filename, and the full path is defined:
+				const folder = fs.knownFolders.documents().path
+				const path = fs.path.join(folder, filename)
+
+				// We save the img to the specified path:
+				const imageSource = state.imgSrc
+				save = {
+					saved: imageSource.saveToFile(path, 'png'),
+					path
 				}
-				
-				// If no attempt of saving img was made, we keep going and just save cocktail with no pic
-				// If attempt was made, but returned false, we log the error:
-				if (save && !save.saved) {
-					return reject(new Error('There was an error saving the selected image'))
-				}
-				
-				// imgSrc is now set to the pathstring to the file (if pic was chosen), since type <imageSource> is only temp. until saving:
-				commit('setNested', {
-					path: [
-						'miscData',
-						'imgSrc'
-					],
-					val: save ? save.path : ''
-				})
-				
-				commit('saveCocktailData')
-				commit('discardCocktail') // Clears data
-				
-				return resolve()
+			}
+
+			// If no attempt of saving img was made, we keep going and just save cocktail with no pic
+			// If attempt was made, but returned false, we log the error:
+			if (save && !save.saved) {
+				throw new Error('There was an error saving the selected image')
+			}
+
+			// imgSrc is now set to the pathstring to the file (if pic was chosen), since type <imageSource> is only temp. until saving:
+			commit('update', {
+				prop: 'imgSrc',
+				data: save ? save.path : ''
 			})
+
+			commit('saveCocktailData')
+			commit('discardCocktail') // Clears data
 		},
 
-		deleteCocktail({ commit, state }, { id }) {
+		async deleteCocktail({ commit, state }, { id }) {
 			// Finds the index of the cocktail to be deleted:
-			const index = state.cocktails.findIndex(cocktail => {
-				cocktail.id == id
-			})
-			
+			const index = state.cocktails.findIndex(cocktail => cocktail.id == id)
+
 			// The path to the image file:
 			const { imgSrc } = state.cocktails[index]
 
 			// Lets a mutation delete the data from Vuex and appSettings:
 			commit('deleteCocktailData', { index })
+
+			// We won't delete an image if none is present:
+			if (!imgSrc) return
 
 			// Deletes the image from app storage:
 			deleteImage(imgSrc)

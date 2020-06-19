@@ -11,16 +11,20 @@
     </ActionBar>
 
     <ScrollView ref="scrollView" @scroll="onScroll">
-      <StackLayout>
-        <StackLayout ref="imgView">
+      <!-- <StackLayout> -->
+			<GridLayout rows="auto, auto">
+        <StackLayout ref="imgView" row="0">
           <Image :src="cocktail.imgSrc" />
         </StackLayout>
 
-        <StackLayout width="100%" padding="10">
+        <StackLayout width="100%" padding="10" row="1">
           <Label v-for="val of cocktailVals" :key="val" margin="30">{{ val }}</Label>
 					<Button @tap="deleteCocktail" class="-primary -warn">Delete Cocktail</Button>
         </StackLayout>
-      </StackLayout>
+
+				<Button row="0" @tap="toggleFavourite">{{ this.cocktail.favourite }}</Button>
+			</GridLayout>
+      <!-- </StackLayout> -->
     </ScrollView>
   </Page>
 </template>
@@ -66,9 +70,19 @@ export default {
 				cancelButtonText: 'Cancel',
 			})
 
-			if (remove) {
-				this.$store.dispatch('deleteCocktail', { id: this.cocktail.id })
-			}
+			if (!remove) return
+
+			try {
+				// We await to make sure we catch any errors before navigating back:
+				await this.$store.dispatch('deleteCocktail', { id: this.cocktail.id })
+				this.$navigateBack()
+			} catch (err) {
+				console.log(err)
+			}	
+		},
+
+		toggleFavourite() {
+			this.$store.commit('toggleFavourite', { id: this.cocktail.id })
 		}
 	},
 

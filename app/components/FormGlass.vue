@@ -4,8 +4,8 @@
       <Button
         v-for="glass of glasses"
         :key="glass"
-        @tap="updateGlassData(glass)"
-        :class="{ selected: glassData === glass }"
+        @tap="updateGlass(glass)"
+        :class="{ selected: glass === glass }"
         class="h2 -primary -rounded-sm"
         flexGrow="1"
         height="60"
@@ -24,24 +24,27 @@ export default {
 			return this.$store.state.glasses
 		},
 
-		glassData: {
+		glass: {
 			get() {
-				return this.$store.state.glassData
+				return this.$store.state.glass
 			},
 
 			set(data) {
-				this.$store.commit('update', { prop: 'glassData', data })
+				this.$store.commit('update', {
+					prop: 'glass',
+					data
+				})
 			},
 		},
 	},
 
 	methods: {
-		updateGlassData(data) {
+		updateGlass(data) {
 			// We can assign directly to state, since our setter in computed uses commit:
-			if (data === this.glassData) {
-				this.glassData = null
+			if (data === this.glass) {
+				this.glass = null
 			} else {
-				this.glassData = data
+				this.glass = data
 			}
 
 			this.$emit('nextTab')
