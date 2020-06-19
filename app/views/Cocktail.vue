@@ -10,22 +10,30 @@
       </StackLayout>
     </ActionBar>
 
-    <ScrollView ref="scrollView" @scroll="onScroll">
-      <!-- <StackLayout> -->
-			<GridLayout rows="auto, auto">
-        <StackLayout ref="imgView" row="0">
-          <Image :src="cocktail.imgSrc" />
-        </StackLayout>
+		<GridLayout rows="auto, *">
+			<!-- margin -60 is to offset the favourite-button -->
+    	<ScrollView ref="scrollView" @scroll="onScroll" row="1" marginTop="-60">
+    	  <StackLayout>
+				<!-- <GridLayout rows="auto, auto"> -->
+    	    <StackLayout ref="imgView">
+    	      <Image :src="cocktail.imgSrc" />
+    	    </StackLayout>
 
-        <StackLayout width="100%" padding="10" row="1">
-          <Label v-for="val of cocktailVals" :key="val" margin="30">{{ val }}</Label>
-					<Button @tap="deleteCocktail" class="-primary -warn">Delete Cocktail</Button>
-        </StackLayout>
+    	    <StackLayout width="100%" padding="10" class="background">
+    	      <Label v-for="val of cocktailVals" :key="val" margin="30">{{ val }}</Label>
+						<Button @tap="deleteCocktail" class="-primary -warn">Delete Cocktail</Button>
+    	    </StackLayout>
 
-				<Button row="0" @tap="toggleFavourite">{{ this.cocktail.favourite }}</Button>
-			</GridLayout>
-      <!-- </StackLayout> -->
-    </ScrollView>
+					<!-- <Label row="0" class="favourite" @tap="toggleFavourite">{{ this.cocktail.favourite }}</Label> -->
+				<!-- </GridLayout> -->
+    	  </StackLayout>
+    	</ScrollView>
+
+			<FlexboxLayout justifyContent="flex-end" row="0" marginTop="30" marginRight="30">
+				<Label width="30" height="30" class="favourite" @tap="toggleFavourite">{{ this.cocktail.favourite }}</Label>
+			</FlexboxLayout>
+
+		</GridLayout>
   </Page>
 </template>
 
@@ -93,4 +101,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../variables';
+
+.background {
+	background: $primary1;
+}
+
+.favourite {
+	background-color: red;
+	border-radius: 50%;
+}
+
+.test {
+	background: blue;
+}
 </style>

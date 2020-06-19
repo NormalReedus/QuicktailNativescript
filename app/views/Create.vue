@@ -225,8 +225,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.filled {
-	color: lightgreen;
-	highlight-color: lightgreen;
-}
+// .filled {
+// 	color: lightgreen;
+// 	highlight-color: lightgreen;
+// }
 </style>

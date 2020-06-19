@@ -5,7 +5,7 @@
         v-for="ice of ices"
         :key="ice"
         @tap="updateIce(ice)"
-        :class="{ selected: ice === ice }"
+        :class="{ selected: ice === selectedIce }"
         class="h2 -primary -rounded-sm"
         flexGrow="1"
         height="60"
@@ -24,7 +24,7 @@ export default {
 			return this.$store.state.ices
 		},
 
-		ice: {
+		selectedIce: {
 			get() {
 				return this.$store.state.ice
 			},
@@ -41,10 +41,10 @@ export default {
 	methods: {
 		updateIce(data) {
 			// We can assign directly to state, since our setter in computed uses commit:
-			if (data === this.ice) {
-				this.ice = null
+			if (data === this.selectedIce) {
+				this.selectedIce = null
 			} else {
-				this.ice = data
+				this.selectedIce = data
 			}
 
 			this.$emit('nextTab')

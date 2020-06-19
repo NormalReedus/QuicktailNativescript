@@ -1,5 +1,6 @@
-@import "~@nativescript/theme/core";
-@import "~@nativescript/theme/blue";
+// @import "~@nativescript/theme/core";
+// @import "~@nativescript/theme/blue";
+@import "variables";
 
 // Place any CSS rules you want to apply on both iOS and Android here.
 // This is where the vast majority of your CSS code goes.
@@ -21,27 +22,31 @@
 }
 
 .selected {
-	border-color: red;
-	border-width: 1;
+	background: $secondary;
 }
 
-// .-warn {
-// 	background: orangered;
-// }
+.-warn {
+	background: orangered;
+}
 
-// .spinning {
-// 	// animation: spin 500ms cubic-bezier(0.76, 0, 0.24, 1) 0 infinite alternate;
-// 	// background: blue;
-// 	// :class="{ spinning: actionBtnSpinning }"
-// 	animation-name: spin;
-// 	animation-duration: 0.5;
-// }
+Frame {
+	color: white;
+	//color: $primary3;
+}
 
-// @keyframes spin {
-// 	from {
-// 		background-color: blue;
-// 	}
-// 	to {
-// 		background-color: red;
-// 	}
-// }
+Page, TabStrip {
+	background: $primary1;
+}
+
+ActionBar {
+	background: $primary2;
+	font-size: 25;
+}
+
+TextField, TextView {
+	placeholder-color: $primary3-placeholder;
+}
+
+Button {
+	background: $primary2;
+}

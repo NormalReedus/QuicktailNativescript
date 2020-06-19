@@ -1,5 +1,5 @@
 <template>
-  <TextView editable="true" v-model="garnish" hint="Description" class="-border -rounded" />
+  <TextView editable="true" v-model="selectedGarnish" hint="Description" class="-border -rounded" />
 </template>
 
 <script>
@@ -7,7 +7,7 @@ export default {
 	name: 'FormGarnish',
 
 	computed: {
-		garnish: {
+		selectedGarnish: {
 			get() {
 				return this.$store.state.garnish
 			},
@@ -16,7 +16,7 @@ export default {
 				this.$store.commit('update', {
 					prop: 'garnish',
 					data
-					})
+				})
 			},
 		},
 	},

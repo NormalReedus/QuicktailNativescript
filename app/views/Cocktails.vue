@@ -11,7 +11,7 @@
     </ActionBar>
 
     <StackLayout>
-      <TextField v-model="searchFilter" hint="Filter..." />
+      <TextField v-model="searchFilter" hint="Filter..." @focus="onTextFieldFocus($event)" @blur="onTextFieldBlur($event)" />
       <!-- Add looking glass icon and an x to clear -->
 
       <GridLayout>
@@ -132,6 +132,14 @@ export default {
 
 			this.addBtnSpinning = !this.addBtnSpinning
 			console.log(this.addBtnSpinning)
+		},
+
+		onTextFieldFocus(e) {
+			console.log(e)
+		},
+
+		onTextFieldBlur(e) {
+			console.log(e)
 		},
 
 

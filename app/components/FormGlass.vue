@@ -5,7 +5,7 @@
         v-for="glass of glasses"
         :key="glass"
         @tap="updateGlass(glass)"
-        :class="{ selected: glass === glass }"
+        :class="{ selected: glass === selectedGlass }"
         class="h2 -primary -rounded-sm"
         flexGrow="1"
         height="60"
@@ -24,7 +24,7 @@ export default {
 			return this.$store.state.glasses
 		},
 
-		glass: {
+		selectedGlass: {
 			get() {
 				return this.$store.state.glass
 			},
@@ -41,10 +41,10 @@ export default {
 	methods: {
 		updateGlass(data) {
 			// We can assign directly to state, since our setter in computed uses commit:
-			if (data === this.glass) {
-				this.glass = null
+			if (data === this.selectedGlass) {
+				this.selectedGlass = null
 			} else {
-				this.glass = data
+				this.selectedGlass = data
 			}
 
 			this.$emit('nextTab')

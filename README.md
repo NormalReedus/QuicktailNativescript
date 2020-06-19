@@ -54,6 +54,10 @@ En iOS & Android native app med Nativescript Vue til let at nedskrive og gemme c
 - Ret MiscData til at være separate og drop -data
 - Test removal (og navigate back ligesom saveCocktail)
 	- Tilføj loggers på state.cocktails og appSettings osv
+- Highlight i creation tabs glitcher til tider
+- Flyt filter op i action-baren som en lup
+- Federe FAB med bedre farver
+- I create skal tilbageknappen gøre helt det samme som discard cocktail
 
 ## Inspo:
 - Styling:

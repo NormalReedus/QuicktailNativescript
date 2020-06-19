@@ -5,7 +5,7 @@
         v-for="method of methods"
         :key="method"
         @tap="updateMethod(method)"
-        :class="{ selected: method === method }"
+        :class="{ selected: method === selectedMethod }"
         class="h2 -primary -rounded-sm"
         flexGrow="1"
         height="60"
@@ -24,7 +24,7 @@ export default {
 			return this.$store.state.methods
 		},
 
-		method: {
+		selectedMethod: {
 			get() {
 				return this.$store.state.method
 			},
@@ -38,10 +38,10 @@ export default {
 	methods: {
 		updateMethod(data) {
 			// We can assign directly to state, since our setter in computed uses commit:
-			if (data === this.method) {
-				this.method = null
+			if (data === this.selectedMethod) {
+				this.selectedMethod = null
 			} else {
-				this.method = data
+				this.selectedMethod = data
 			}
 
 			this.$emit('nextTab')
