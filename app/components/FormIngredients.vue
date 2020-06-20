@@ -1,7 +1,7 @@
 <template>
-  <!-- <ListPicker v-if="unitPickerShown" :items="units" :selectedIndex="unitIndex" @selectedIndexChange="setUnitIndex($event)" @tap="toggleUnitPicker"/> -->
+  <ListPicker v-if="unitPickerShown" :items="units" :selectedIndex="unitIndex" @selectedIndexChange="setUnitIndex($event)" @tap="toggleUnitPicker"/>
 
-  <ScrollView>
+  <ScrollView v-else>
     <StackLayout orientation="vertical" class="m-x-15">
       <FlexboxLayout v-for="ingredient of ingredients" :key="ingredient" alignItems="center" justifyContent="flex-end">
         <Label flexGrow="1">{{ ingredient }}</Label>
@@ -10,9 +10,7 @@
 
       <FlexboxLayout alignItems="center" class="nt-input">
         <TextField hint="Amount" keyboardType="number" v-model="amt" class="-border -rounded" />
-
-        <!-- <Button @tap="toggleUnitPicker" class="-rounded-lg" >{{ selectedUnit }}</Button> -->
-
+        <Button @tap="toggleUnitPicker" class="-rounded-lg" >{{ selectedUnit }}</Button>
         <TextField
           hint="Ingredient"
           class="nt-input -border -rounded"
