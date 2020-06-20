@@ -66,8 +66,8 @@
       </Tabs>
 
       <StackLayout row="1">
-        <Button text="Save" class="-primary" @tap="saveCocktail" />
-        <Button text="Discard" @tap="discardCocktail" />
+        <Button text="Save" class="cta" @tap="saveCocktail" />
+        <Button text="Discard" class="test" @tap="discardCocktail" />
       </StackLayout>
     </GridLayout>
   </Page>
@@ -225,6 +225,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
 // .filled {
 // 	color: lightgreen;
 // 	highlight-color: lightgreen;

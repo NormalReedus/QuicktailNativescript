@@ -8,14 +8,14 @@ import Cocktails from "./views/Cocktails";
 Vue.use(Vuex)
 
 new Vue({
-		store,
+	store,
 
-    template: `
+	template: `
         <Frame class="ns-dark">
             <Cocktails />
         </Frame>`,
 
-    components: {
-        Cocktails
-		},
+	components: {
+		Cocktails
+	},
 }).$start();

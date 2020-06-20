@@ -11,7 +11,7 @@
     </ActionBar>
 
     <StackLayout>
-      <TextField v-model="searchFilter" hint="Filter..." @focus="onTextFieldFocus($event)" @blur="onTextFieldBlur($event)" />
+      <TextField v-model="searchFilter" hint="Filter..." />
       <!-- Add looking glass icon and an x to clear -->
 
       <GridLayout>
@@ -61,7 +61,7 @@
         <AbsoluteLayout marginTop="87%" marginLeft="80%" row="0">
           
           <FlexboxLayout
-            @tap="goToCreatePage"
+            @tap="$navigateTo(Create)"
             background="orangered"
             width="56"
             height="56"
@@ -98,7 +98,6 @@ export default {
 			Create,
 			// Cocktail
 			searchFilter: '',
-			addBtnSpinning: false,
 		}
 	},
 
@@ -125,21 +124,6 @@ export default {
 					cocktail,
 				},
 			})
-		},
-
-		goToCreatePage() {
-			this.$navigateTo(Create)
-
-			this.addBtnSpinning = !this.addBtnSpinning
-			console.log(this.addBtnSpinning)
-		},
-
-		onTextFieldFocus(e) {
-			console.log(e)
-		},
-
-		onTextFieldBlur(e) {
-			console.log(e)
 		},
 
 

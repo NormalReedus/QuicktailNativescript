@@ -22,11 +22,15 @@
 }
 
 .selected {
-	background: $secondary;
+	background: $tertiary2;
 }
 
-.-warn {
-	background: orangered;
+.cta {
+	background: $tertiary1;
+}
+
+.warn {
+	background: $warn;
 }
 
 Frame {

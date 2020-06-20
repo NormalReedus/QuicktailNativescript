@@ -18,7 +18,7 @@
           v-model="ingredient"
           @returnPress="addIngredient"
         />
-        <Button @tap="addIngredient" class="-rounded-lg">+</Button>
+        <Label @tap="addIngredient" class="btn-add fas"></Label>
       </FlexboxLayout>
     </StackLayout>
   </ScrollView>
@@ -94,7 +94,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-button {
-	width: 10;
+@import '../variables';
+
+.btn-add {
+	font-size: 20;
+	border-radius: 50%;
 }
 </style>
