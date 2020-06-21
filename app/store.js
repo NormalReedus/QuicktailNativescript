@@ -8,6 +8,8 @@ setupDefaults() // Default glasses etc in appSettings
 const fs = require('tns-core-modules/file-system')
 clearCocktails()
 
+const dialogs = require('tns-core-modules/ui/dialogs')
+
 import { Cocktail } from '@/components/classes'
 
 Vue.use(Vuex)
@@ -45,6 +47,25 @@ export default new Vuex.Store({
 
 		// Default unit chosen:
 		defaultUnitIndex: JSON.parse(appSettings.getNumber('defaultUnitIndex')),
+
+		// To manipulate back-button:
+		onCreatePage: false,
+	},
+
+	getters: {
+		dataIsSet: state => {
+			return (
+				state.glass &&
+				state.ice &&
+				state.method &&
+				state.ingredients.length > 0 &&
+				state.name
+			)
+		},
+
+		anyDataIsSet: state => {
+			return state.glass || state.ice || state.method || state.ingredients.length > 0 || state.garnish || state.name || state.description || state.imgSrc
+		}
 	},
 
 	mutations: {
@@ -125,7 +146,15 @@ export default new Vuex.Store({
 			cocktail.favourite = !cocktail.favourite
 
 			appSettings.setString('cocktails', JSON.stringify(state.cocktails))
-		}
+		},
+
+		onCreatePage(state) {
+			state.onCreatePage = true
+		},
+
+		notOnCreatePage(state) {
+			state.onCreatePage = false
+		},
 	},
 
 	actions: {
@@ -164,6 +193,24 @@ export default new Vuex.Store({
 
 			commit('saveCocktailData')
 			commit('discardCocktail') // Clears data
+		},
+
+		async discardCocktail({ getters, commit }/*, { navigateBack }*/) {
+
+			if (getters.anyDataIsSet) {
+				const discard = await dialogs.confirm({
+					title: 'Discard Coctail?',
+					okButtonText: 'Discard',
+					cancelButtonText: 'Cancel',
+				})
+				
+				if (!discard) return
+			}
+
+			commit('discardCocktail')
+
+			return true
+			// navigateBack()
 		},
 
 		async deleteCocktail({ commit, state }, { id }) {

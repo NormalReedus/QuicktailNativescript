@@ -19,6 +19,8 @@
 			<AbsoluteLayout v-if="imgSrc" row="3">
 				<Image
 				width="100%"
+				top="0"
+				left="0"
         :src="imgSrc"
         loadMode="async"
         stretch="aspectFit"

@@ -118,6 +118,7 @@ export default {
 	},
 
 	methods: {
+
 		goToCocktailPage(cocktail) {
 			this.$navigateTo(Cocktail, {
 				props: {
@@ -148,9 +149,10 @@ export default {
 
 
 	mounted() {
-		this.files()
-		console.log('---')
-		this.keys()
+		// this.files()
+		// console.log('---')
+		// this.keys()
+
 	}
 }
 </script>

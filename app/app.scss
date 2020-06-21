@@ -54,3 +54,11 @@ TextField, TextView {
 Button {
 	background: $primary2;
 }
+
+// Custom Component:
+DropDown {
+	background: $primary2;
+	font-size: 18;
+
+	items-text-alignment: center;
+}

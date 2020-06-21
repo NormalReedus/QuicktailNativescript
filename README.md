@@ -58,6 +58,7 @@ En iOS & Android native app med Nativescript Vue til let at nedskrive og gemme c
 - Flyt filter op i action-baren som en lup
 - Federe FAB med bedre farver
 - I create skal tilbageknappen gøre helt det samme som discard cocktail
+- Global styling på ikon-knapper, så de er ens
 
 ## Inspo:
 - Styling:

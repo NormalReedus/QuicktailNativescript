@@ -1,5 +1,5 @@
 <template>
-  <Page>
+  <Page @loaded="onPageLoaded" @navigatingFrom="onPageLeaving">
     <ActionBar title="Create Cocktail">
       <StackLayout
         orientation="horizontal"
@@ -33,9 +33,7 @@
             <Label>Garnish</Label>
           </TabStripItem>
 
-          <TabStripItem
-            :class="{ filled: name }"
-          >
+          <TabStripItem :class="{ filled: name }">
             <Label>Misc.</Label>
           </TabStripItem>
         </TabStrip>
@@ -160,7 +158,7 @@ export default {
 					break
 
 				case 5:
-					return this.description || this.imgSrc
+					return this.description || this.imgSrc || this.name
 					break
 
 				default:
@@ -170,13 +168,7 @@ export default {
 
 		dataIsSet() {
 			//! Tilføj default img her, hvis intet er sat
-			return (
-				this.glass &&
-				this.ice &&
-				this.method &&
-				this.ingredients.length > 0 &&
-				this.name
-			)
+			return this.$store.getters.dataIsSet
 		},
 	},
 
@@ -202,16 +194,19 @@ export default {
 		},
 
 		async discardCocktail() {
-			const discard = await dialogs.confirm({
-				title: 'Discard Coctail?',
-				okButtonText: 'Discard',
-				cancelButtonText: 'Cancel',
-			})
+			const success = await this.$store.dispatch('discardCocktail')
+			if (success) this.$navigateBack()
 
-			if (!discard) return
+			// const discard = await dialogs.confirm({
+			// 	title: 'Discard Coctail?',
+			// 	okButtonText: 'Discard',
+			// 	cancelButtonText: 'Cancel',
+			// })
 
-			this.$store.commit('discardCocktail')
-			this.$navigateBack()
+			// if (!discard) return
+
+			// this.$store.commit('discardCocktail')
+			// this.$navigateBack()
 		},
 
 		nextTab() {
@@ -220,12 +215,21 @@ export default {
 				this.selectedTabIndex++
 			}
 		},
+
+		onPageLoaded(args) {
+			this.$store.commit('onCreatePage')
+			console.log(this.$store.state.onCreatePage)
+		},
+
+		onPageLeaving(args) {
+			this.$store.commit('notOnCreatePage')
+			console.log(this.$store.state.onCreatePage)
+		}
 	},
 }
 </script>
 
 <style scoped lang="scss">
-
 // .filled {
 // 	color: lightgreen;
 // 	highlight-color: lightgreen;
