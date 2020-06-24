@@ -10,36 +10,28 @@
       </StackLayout>
     </ActionBar>
 
-    <GridLayout rows="auto, *">
-      <ScrollView ref="scrollView" @scroll="onScroll" row="1">
-        <!-- <StackLayout> -->
-        <GridLayout rows="30, auto, auto">
-          <StackLayout ref="imgView" row="0" rowSpan="2">
-            <Image :src="cocktail.imgSrc" />
-          </StackLayout>
+    <ScrollView ref="scrollView" @scroll="onScroll">
+			<!-- 30 padding, 34 for icon (somehow it needs 4dips margin to get a 30 icon) -->
+      <GridLayout rows="30, 34, auto, auto" columns="*, 34, 30">
+        <StackLayout ref="imgView" row="0" rowSpan="3" col="0" colSpan="3">
+          <Image :src="cocktail.imgSrc" />
+        </StackLayout>
 
-          <StackLayout width="100%" padding="10" row="2" class="background">
-            <Label v-for="val of cocktailVals" :key="val" margin="30">{{ val }}</Label>
-            <Button @tap="deleteCocktail" class="warn">Delete Cocktail</Button>
-          </StackLayout>
+				<Label
+						row="1"
+						col="1"
+            class="btn-favourite"
+            :class="cocktail.favourite ? 'fas' : 'far'"
+            @tap="toggleFavourite"
+          ></Label>
 
-          <FlexboxLayout justifyContent="flex-end" row="0" marginTop="60" height="30" marginRight="30">
-            <Label
-              width="34"
-              height="34"
-              class="btn-favourite"
-              :class="cocktail.favourite ? 'fas' : 'far'"
-              @tap="toggleFavourite"
-            ></Label>
-          </FlexboxLayout>
-        </GridLayout>
-        <!-- </StackLayout> -->
-      </ScrollView>
+        <StackLayout width="100%" padding="10" row="3" col="0" colSpan="3" class="background">
+          <Label v-for="val of cocktailVals" :key="val" margin="30">{{ val }}</Label>
+          <Button @tap="deleteCocktail" class="warn">Delete Cocktail</Button>
+        </StackLayout>
 
-      <!-- <FlexboxLayout justifyContent="flex-end" row="0" marginTop="30" marginRight="30">
-				<Label width="30" height="30" class="favourite" :class="cocktail.favourite ? 'fas' : 'far'" @tap="toggleFavourite"></Label>
-      </FlexboxLayout>-->
-    </GridLayout>
+      </GridLayout>
+    </ScrollView>
   </Page>
 </template>
 

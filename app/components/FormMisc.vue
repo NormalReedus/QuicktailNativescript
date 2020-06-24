@@ -16,19 +16,22 @@
         <Button @tap="pickPhoto">Gallery</Button>
       </FlexboxLayout>
 
-			<AbsoluteLayout v-if="imgSrc" row="3">
+			<!-- 30 padding, 30 for icon -->
+			<GridLayout rows="30, 30, auto" columns="auto, 30, 30" v-if="imgSrc" row="3">
 				<Image
+				row="0"
+				col="0"
+				rowSpan="3"
+				colSpan="3"
 				width="100%"
-				top="0"
-				left="0"
         :src="imgSrc"
         loadMode="async"
         stretch="aspectFit"
         class="img-circle"
       	/>
 			
-				<Label color="white" fontSize="30" text="" class="far" @tap="imgSrc = ''" margin="20"/>
-			</AbsoluteLayout>
+				<Label row="1" col="1" text="" class="btn-remove-image far" @tap="imgSrc = ''"/>
+			</GridLayout>
 
       
     </GridLayout>
@@ -166,4 +169,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../variables';
+
+.btn-remove-image {
+	border-radius: 50%;
+
+	color: $warn;
+	font-size: 30;
+}
 </style>
