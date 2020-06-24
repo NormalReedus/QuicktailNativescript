@@ -8,7 +8,10 @@ import { topmost } from 'tns-core-modules/ui/frame'
 // Back button manipulation:
 import * as application from 'tns-core-modules/application'
 
+// Components:
 Vue.registerElement("DropDown", () => require("nativescript-drop-down/drop-down").DropDown)
+Vue.registerElement("PickerField", () => require("nativescript-picker/picker").PickerField)
+
 
 import Cocktails from "./views/Cocktails";
 

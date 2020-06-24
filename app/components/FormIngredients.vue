@@ -1,25 +1,37 @@
 <template>
-  <!-- <ListPicker v-if="unitPickerShown" :items="units" :selectedIndex="unitIndex" @selectedIndexChange="setUnitIndex($event)" @tap="toggleUnitPicker"/> -->
-
   <ScrollView>
-    <StackLayout orientation="vertical" class="m-x-15">
-      <FlexboxLayout v-for="ingredient of ingredients" :key="ingredient" alignItems="center" justifyContent="flex-end">
+    <StackLayout orientation="vertical">
+      <FlexboxLayout
+        v-for="ingredient of ingredients"
+        :key="ingredient"
+        alignItems="center"
+        justifyContent="flex-end"
+      >
         <Label flexGrow="1">{{ ingredient }}</Label>
         <Button class="-rounded-lg" @tap="removeIngredient(ingredient)">x</Button>
       </FlexboxLayout>
 
-      <FlexboxLayout alignItems="center" class="nt-input">
-        <TextField hint="Amount" keyboardType="number" v-model="amt" class="-border -rounded" />
-        <!-- <Button @tap="toggleUnitPicker" class="-rounded-lg" >{{ selectedUnit }}</Button> -->
-				<DropDown :items="units" :selectedIndex="unitIndex" class="dropdown" @selectedIndexChanged="setUnitIndex" />
+      <FlexboxLayout alignItems="center" class="add-ingredient-line">
+        <TextField hint="Amount" keyboardType="number" v-model="amt" width="18%" />
 
+        <DropDown
+          :items="units"
+          :selectedIndex="unitIndex"
+          class="dropdown"
+          @selectedIndexChanged="setUnitIndex"
+					itemsTextAlignment="center"
+					itemsPadding="5"
+        />
+
+				<!-- Width="50%" makes sure it doesn't expand with text, flexGrow makes it take up all available space -->
         <TextField
           hint="Ingredient"
-          class="nt-input -border -rounded"
-          flexGrow="1"
           v-model="ingredient"
           @returnPress="addIngredient"
+					width="50%"
+					flexGrow="1"
         />
+
         <Label @tap="addIngredient" class="btn-add fas"></Label>
       </FlexboxLayout>
     </StackLayout>
@@ -66,7 +78,7 @@ export default {
 
 			this.$store.commit('add', {
 				array: 'ingredients',
-				data
+				data,
 			})
 
 			this.ingredient = ''
@@ -76,7 +88,7 @@ export default {
 		removeIngredient(data) {
 			this.$store.commit('remove', {
 				array: 'ingredients',
-				data
+				data,
 			})
 		},
 
@@ -98,8 +110,18 @@ export default {
 <style lang="scss" scoped>
 @import '../variables';
 
-.btn-add {
-	font-size: 20;
-	border-radius: 50%;
+.add-ingredient-line {
+	// Everything except for the first child:
+	* + * {
+		margin-left: 10;
+	}
+
+	.btn-add {
+		font-size: 18;
+		border-radius: 50%;
+	}
+
+	TextField {
+	}
 }
 </style>
