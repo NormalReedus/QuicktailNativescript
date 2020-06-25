@@ -8,20 +8,24 @@
         justifyContent="flex-end"
       >
         <Label flexGrow="1">{{ ingredient }}</Label>
-        <Button class="-rounded-lg" @tap="removeIngredient(ingredient)">x</Button>
+        <Button @tap="removeIngredient(ingredient)">x</Button>
       </FlexboxLayout>
 
       <FlexboxLayout alignItems="center" class="add-ingredient-line">
         <TextField hint="Amount" keyboardType="number" v-model="amt" width="18%" />
 
-        <DropDown
+        <!-- <DropDown
           :items="units"
           :selectedIndex="unitIndex"
           class="dropdown"
           @selectedIndexChanged="setUnitIndex"
 					itemsTextAlignment="center"
 					itemsPadding="5"
-        />
+        /> -->
+
+				<!-- TEST -->
+			<PickerField pickerTitle="Select a measurement" :items="units" :text="selectedUnit" @textChange="onUnitChange" />
+			<!-- TEST -->
 
 				<!-- Width="50%" makes sure it doesn't expand with text, flexGrow makes it take up all available space -->
         <TextField
@@ -67,8 +71,8 @@ export default {
 	},
 
 	methods: {
-		setUnitIndex({ newIndex }) {
-			this.unitIndex = newIndex
+		onUnitChange({ object }) {
+			this.unitIndex = object.selectedIndex
 		},
 
 		addIngredient() {
@@ -119,9 +123,13 @@ export default {
 	.btn-add {
 		font-size: 18;
 		border-radius: 50%;
+		color: $primary3;
 	}
 
-	TextField {
+	PickerField {
+		background: $primary2;
+		border-radius: 3;
+		padding: 2 10;
 	}
 }
 </style>

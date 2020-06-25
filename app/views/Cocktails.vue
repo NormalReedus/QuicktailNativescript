@@ -13,10 +13,6 @@
     <StackLayout>
       <TextField v-model="searchFilter" hint="Filter..." />
       <!-- Add looking glass icon and an x to clear -->
-			
-			<!-- TEST -->
-			<PickerField hint="Click here"></PickerField>
-			<!-- TEST -->
 
       <GridLayout>
         <ScrollView row="0">

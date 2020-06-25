@@ -63,4 +63,18 @@ DropDown {
 
 PickerField {
 	placeholder-color: $primary3-placeholder;
+	text-alignment: center;
+}
+
+PickerPage {
+	background: $primary1;
+
+	ListView {
+		font-size: 24;
+		text-align: center;
+		
+		* {
+			margin: 10 0;
+		}
+	}
 }

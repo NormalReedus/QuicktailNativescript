@@ -65,7 +65,7 @@
 
       <StackLayout row="1">
         <Button text="Save" class="cta" @tap="saveCocktail" />
-        <Button text="Discard" class="test" @tap="discardCocktail" />
+        <Button text="Discard" @tap="discardCocktail" />
       </StackLayout>
     </GridLayout>
   </Page>
