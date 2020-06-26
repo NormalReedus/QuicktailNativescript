@@ -5,10 +5,10 @@
         v-for="ingredient of ingredients"
         :key="ingredient"
         alignItems="center"
-        justifyContent="flex-end"
+        justifyContent="space-between"
       >
-        <Label flexGrow="1">{{ ingredient }}</Label>
-        <Button @tap="removeIngredient(ingredient)">x</Button>
+        <Label flexGrow="1" background="blue">{{ ingredient }}</Label>
+        <Label @tap="removeIngredient(ingredient)" class="btn fas"></Label>
       </FlexboxLayout>
 
       <FlexboxLayout alignItems="center" class="add-ingredient-line">
@@ -36,7 +36,7 @@
 					flexGrow="1"
         />
 
-        <Label @tap="addIngredient" class="btn-add fas"></Label>
+        <Label @tap="addIngredient" class="btn-add btn fas"></Label>
       </FlexboxLayout>
     </StackLayout>
   </ScrollView>
@@ -120,10 +120,14 @@ export default {
 		margin-left: 10;
 	}
 
-	.btn-add {
+	.btn {
 		font-size: 18;
 		border-radius: 50%;
 		color: $primary3;
+
+	}
+
+	.btn-add {
 	}
 
 	PickerField {
