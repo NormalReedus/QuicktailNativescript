@@ -20,11 +20,11 @@
             <StackLayout
               width="40%"
               v-for="cocktail of filteredCocktails"
-              :key="cocktail.imgSrc"
+              :key="cocktail.id"
               class="-circle"
               @tap="goToCocktailPage(cocktail)"
             >
-              <Image :src="cocktail.imgSrc" />
+              <Image :src="cocktail.displayImgSrc" />
               <Label>{{ cocktail.name }}</Label>
             </StackLayout>
           </FlexboxLayout>

@@ -12,6 +12,10 @@ export class Cocktail {
 
 		this.favourite = false
 	}
+
+	get displayImgSrc() {
+		return this.imgSrc || 'res://placeholder'
+	}
 }
 
 export class Glass {
